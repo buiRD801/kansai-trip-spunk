@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫遊關西 ～ 古都秘境散策四日</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #f5f0e8;
+    --ink: #1a1208;
+    --sumi: #2d2416;
+    --matcha: #6b7c45;
+    --matcha-light: #8fa060;
+    --gold: #c4933f;
+    --gold-light: #d4a85a;
+    --vermillion: #c0392b;
+    --sakura: #e8c4c4;
+    --nori: #3d4a2e;
+    --cream: #faf7f0;
+    --shadow: rgba(26,18,8,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--washi);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 120%;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--sumi);
+  }
+
+  /* decorative ink wash background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(107,124,69,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(192,57,43,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 100% at 50% 50%, #1a1208 0%, #2d2416 100%);
+  }
+
+  /* Torii silhouette SVG overlay */
+  .hero-torii {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%; max-width: 800px;
+    opacity: 0.08;
+  }
+
+  /* vertical ink strokes */
+  .ink-strokes {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 120px,
+        rgba(255,255,255,0.015) 120px,
+        rgba(255,255,255,0.015) 121px
+      );
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    animation: fadeIn 1.4s ease both;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.3em 1.2em;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .hero-title-jp {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    font-weight: 600;
+    color: #f5f0e8;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title-sub {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: var(--gold-light);
+    letter-spacing: 0.25em;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 2rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    text-align: center;
+  }
+
+  .hero-meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.45);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .hero-meta-value {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1rem;
+    color: var(--cream);
+    letter-spacing: 0.08em;
+  }
+
+  .hero-img-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.15;
+  }
+
+  .hero-img-placeholder span {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    border: 1px dashed var(--gold);
+    padding: 0.5rem 1.5rem;
+    border-radius: 2px;
+    position: absolute;
+    top: 2rem; right: 2rem;
+    opacity: 0.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink);
+    border-bottom: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: rgba(245,240,232,0.65);
+    text-decoration: none;
+    padding: 0.85rem 1.4rem;
+    border-right: 1px solid rgba(196,147,63,0.2);
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  nav a:first-child { border-left: 1px solid rgba(196,147,63,0.2); }
+
+  nav a:hover {
+    color: var(--gold);
+    background: rgba(196,147,63,0.06);
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--matcha);
+    opacity: 0.18;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    flex-shrink: 0;
+  }
+
+  .section-title-wrap {}
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--matcha);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 600;
+    color: var(--sumi);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── MEETING INFO ── */
+  #meeting { background: var(--cream); }
+
+  .meeting-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .info-card {
+    background: white;
+    border: 1px solid rgba(107,124,69,0.2);
+    border-top: 3px solid var(--matcha);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .info-card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .info-card-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--matcha);
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(107,124,69,0.15);
+    padding-bottom: 0.5rem;
+  }
+
+  .info-card p {
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: var(--sumi);
+  }
+
+  .info-card strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .guide-table th {
+    background: var(--nori);
+    color: var(--cream);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+  }
+
+  .guide-table td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(107,124,69,0.12);
+    vertical-align: top;
+    color: var(--sumi);
+  }
+
+  .guide-table tr:nth-child(even) td {
+    background: rgba(107,124,69,0.04);
+  }
+
+  .phone-link {
+    color: var(--matcha);
+    text-decoration: none;
+    font-size: 0.82rem;
+    display: block;
+  }
+
+  /* ── FLIGHT ── */
+  #flight { background: var(--washi); }
+
+  .flight-group { margin-bottom: 2.5rem; }
+
+  .flight-badge {
+    display: inline-block;
+    background: var(--sumi);
+    color: var(--gold);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    padding: 0.25em 0.9em;
+    margin-bottom: 1rem;
+  }
+
+  .flight-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    border: 1px solid rgba(107,124,69,0.2);
+    background: white;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .flight-cell {
+    padding: 0.9rem 1.2rem;
+    border-right: 1px solid rgba(107,124,69,0.1);
+    font-size: 0.84rem;
+  }
+
+  .flight-cell:last-child { border-right: none; }
+
+  .flight-cell-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--matcha);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .flight-cell-value {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .flight-arrow {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1rem;
+  }
+
+  /* ── ITINERARY ── */
+  #itinerary { background: var(--cream); }
+
+  .day-block {
+    margin-bottom: 3.5rem;
+    position: relative;
+  }
+
+  .day-block::before {
+    content: '';
+    position: absolute;
+    left: 52px; top: 60px; bottom: -1rem;
+    width: 1px;
+    background: linear-gradient(180deg, var(--matcha) 0%, rgba(107,124,69,0.1) 100%);
+  }
+
+  .day-block:last-child::before { display: none; }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .day-number {
+    width: 104px; height: 104px;
+    background: var(--sumi);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .day-number::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--matcha) 0%, var(--nori) 100%);
+    opacity: 0.6;
+  }
+
+  .day-number-text {
+    position: relative; z-index: 1;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .day-number-date {
+    position: relative; z-index: 1;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-top: 0.3rem;
+  }
+
+  .day-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--sumi);
+    font-weight: 600;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+  }
+
+  .spot-list {
+    padding-left: 120px;
+  }
+
+  .spot-item {
+    margin-bottom: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    background: white;
+    border-left: 3px solid var(--matcha);
+    position: relative;
+  }
+
+  .spot-item::before {
+    content: '';
+    position: absolute;
+    left: -11px; top: 50%;
+    transform: translateY(-50%);
+    width: 8px; height: 8px;
+    background: var(--matcha);
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+  .spot-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--nori);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-desc {
+    font-size: 0.82rem;
+    color: #5a5040;
+    line-height: 1.85;
+  }
+
+  .img-placeholder {
+    background: rgba(107,124,69,0.06);
+    border: 1px dashed rgba(107,124,69,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: rgba(107,124,69,0.5);
+    font-family: 'Noto Serif TC', serif;
+  }
+
+  .meal-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    padding-left: 120px;
+  }
+
+  .meal-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--washi);
+    border: 1px solid rgba(107,124,69,0.2);
+    padding: 0.35rem 0.9rem;
+    font-size: 0.78rem;
+    color: var(--sumi);
+  }
+
+  .meal-badge .meal-icon { font-size: 0.9rem; }
+
+  .hotel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--nori);
+    color: var(--cream);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 1rem;
+    margin-top: 1rem;
+    margin-left: 120px;
+  }
+
+  /* ── HOTELS ── */
+  #hotels { background: var(--washi); }
+
+  .hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .hotel-card {
+    background: white;
+    border: 1px solid rgba(107,124,69,0.15);
+    overflow: hidden;
+  }
+
+  .hotel-img {
+    background: rgba(107,124,69,0.07);
+    border-bottom: 1px dashed rgba(107,124,69,0.25);
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: rgba(107,124,69,0.4);
+    font-family: 'Noto Serif TC', serif;
+  }
+
+  .hotel-body { padding: 1.5rem; }
+
+  .hotel-nights {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--matcha);
+    margin-bottom: 0.4rem;
+  }
+
+  .hotel-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--sumi);
+    margin-bottom: 0.2rem;
+  }
+
+  .hotel-name-en {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--matcha);
+    margin-bottom: 1rem;
+  }
+
+  .hotel-info {
+    font-size: 0.8rem;
+    color: #5a5040;
+    line-height: 1.8;
+  }
+
+  .hotel-info a {
+    color: var(--matcha);
+    text-decoration: none;
+  }
+
+  /* ── NOTICES ── */
+  #notices { background: var(--cream); }
+
+  .notice-accordion {
+    border: 1px solid rgba(107,124,69,0.2);
+    margin-bottom: 0.8rem;
+    background: white;
+  }
+
+  .notice-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
+    color: var(--sumi);
+    letter-spacing: 0.06em;
+    text-align: left;
+  }
+
+  .notice-btn span.arrow {
+    font-size: 0.7rem;
+    color: var(--matcha);
+    transition: transform 0.25s;
+  }
+
+  .notice-btn.open span.arrow { transform: rotate(180deg); }
+
+  .notice-content {
+    display: none;
+    padding: 0 1.5rem 1.2rem;
+  }
+
+  .notice-content.open { display: block; }
+
+  .notice-list {
+    font-size: 0.82rem;
+    color: #5a5040;
+    line-height: 2;
+    padding-left: 1.2rem;
+  }
+
+  .notice-list li { margin-bottom: 0.3rem; }
+
+  .notice-list li::marker { color: var(--matcha); }
+
+  .highlight-red { color: var(--vermillion); font-weight: 500; }
+
+  /* ── PACKING ── */
+  #packing { background: var(--washi); }
+
+  .pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .pack-cat {
+    background: white;
+    border: 1px solid rgba(107,124,69,0.15);
+    padding: 1.2rem;
+  }
+
+  .pack-cat-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.8rem;
+    color: var(--nori);
+    letter-spacing: 0.12em;
+    border-bottom: 2px solid var(--matcha);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .pack-item {
+    font-size: 0.78rem;
+    color: #5a5040;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .pack-item::before {
+    content: '□';
+    color: var(--matcha);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  /* ── CONTACTS ── */
+  #contacts { background: var(--cream); }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .contact-card {
+    background: var(--sumi);
+    padding: 1.5rem;
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(107,124,69,0.15);
+  }
+
+  .contact-bus {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .contact-phone {
+    font-size: 0.8rem;
+    line-height: 2;
+    color: rgba(245,240,232,0.8);
+  }
+
+  .contact-phone strong {
+    color: var(--gold);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    display: block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    text-align: center;
+    padding: 3rem 2rem;
+    color: rgba(245,240,232,0.35);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
+
+  footer .footer-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── UTILS ── */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(107,124,69,0.3), transparent);
+    margin: 3rem 0;
+  }
+
+  .alert-box {
+    background: rgba(192,57,43,0.06);
+    border-left: 3px solid var(--vermillion);
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: var(--sumi);
+    line-height: 1.9;
+  }
+
+  .matcha-box {
+    background: rgba(107,124,69,0.07);
+    border-left: 3px solid var(--matcha);
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: var(--sumi);
+    line-height: 1.9;
+  }
+
+  /* ── ROOMS ── */
+  #rooms { background: var(--washi); }
+
+  .room-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--matcha);
+    margin-bottom: 1.5rem;
+  }
+
+  .room-tab {
+    background: none;
+    border: none;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    color: var(--sumi);
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .room-tab.active {
+    color: var(--matcha);
+    border-bottom-color: var(--matcha);
+    font-weight: 600;
+  }
+
+  .room-tab:hover { color: var(--matcha); }
+
+  .room-note {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    background: var(--sumi);
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .room-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .room-table thead th {
+    background: var(--nori);
+    color: var(--cream);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+  }
+
+  .room-table td {
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid rgba(107,124,69,0.1);
+    color: var(--sumi);
+  }
+
+  .room-table tr:nth-child(even) td { background: rgba(107,124,69,0.04); }
+
+  .room-table tr:hover td { background: rgba(196,147,63,0.06); }
+
+  .room-table td:first-child {
+    color: rgba(45,36,22,0.4);
+    font-size: 0.75rem;
+    width: 50px;
+  }
+
+  td.room-cross {
+    font-size: 0.72rem;
+    color: var(--matcha);
+    letter-spacing: 0.05em;
+  }
+
+  tr.room-guide td {
+    background: rgba(61,74,46,0.08) !important;
+    font-weight: 600;
+    color: var(--nori);
+  }
+
+  tr.room-guide td:last-child {
+    color: var(--matcha);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .spot-list, .meal-row, .hotel-badge { padding-left: 0; margin-left: 0; }
+    .day-block::before { display: none; }
+    .day-header { flex-direction: column; align-items: flex-start; }
+    nav a { padding: 0.75rem 1rem; font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="ink-strokes"></div>
+  <div class="hero-img-placeholder">
+    <span>＋ 封面背景圖片</span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">EVA AIR &nbsp;·&nbsp; 115年05月08日</div>
+    <div class="hero-title-jp">漫遊關西</div>
+    <div class="hero-title-jp" style="font-size:clamp(1rem,3vw,1.8rem);color:var(--gold-light);margin-top:0.2rem;">古都秘境散策四日</div>
+    <div class="hero-divider"></div>
+    <div class="hero-title-sub">世界遺產・抹茶體驗・琵琶湖遊船・三千院・河合神社</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">出發</span>
+        <span class="hero-meta-value">05 / 08</span>
+      </div>
+      <div class="hero-meta-item" style="color:var(--gold);font-size:1.2rem;align-self:center;">→</div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">返回</span>
+        <span class="hero-meta-value">05 / 11</span>
+      </div>
+      <div class="hero-meta-item" style="border-left:1px solid rgba(196,147,63,0.3);padding-left:2rem;margin-left:0.5rem;">
+        <span class="hero-meta-label">行程</span>
+        <span class="hero-meta-value">4 天</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">旅遊車</span>
+        <span class="hero-meta-value">A ／ B ／ C 車</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#meeting">集合資訊</a>
+  <a href="#flight">航班</a>
+  <a href="#hotels">住宿</a>
+  <a href="#itinerary">每日行程</a>
+  <a href="#notices">注意事項</a>
+  <a href="#packing">攜帶物品</a>
+  <a href="#rooms">團體分房</a>
+  <a href="#contacts">導遊聯絡</a>
+</nav>
+
+<!-- ══ MEETING ══ -->
+<section id="meeting">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">集</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Assembly</span>
+        <div class="section-title">集合資訊</div>
+      </div>
+    </div>
+
+    <div class="meeting-grid">
+      <div class="info-card">
+        <span class="info-card-icon">🚌</span>
+        <div class="info-card-title">第一集合・出發點</div>
+        <p>
+          <strong>05月08日 上午 03:15</strong><br>
+          台北市南京東路四段 16 號
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">✈️</span>
+        <div class="info-card-title">第二集合・機場</div>
+        <p>
+          <strong>05月08日 上午 04:00</strong><br>
+          （起飛前 2.5 小時）<br>
+          桃園國際機場 第2航廈<br>
+          長榮航空 <strong>20 號</strong>團體櫃台
+        </p>
+      </div>
+      <div class="info-card" style="border-top-color:var(--vermillion);">
+        <span class="info-card-icon">⚠️</span>
+        <div class="info-card-title" style="color:var(--vermillion);">重要提醒</div>
+        <p>
+          若無法準時到達集合地點，<br>
+          請主動聯絡服務人員。<br><br>
+          延誤無法成行之損失<br>由旅客自行負責。
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-header" style="margin-bottom:1.5rem;">
+      <div class="section-kanji" style="font-size:2.5rem;">導</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Guides</span>
+        <div class="section-title" style="font-size:1.2rem;">導遊聯絡資訊</div>
+      </div>
+    </div>
+
+    <table class="guide-table">
+      <thead>
+        <tr>
+          <th>分組</th>
+          <th>導遊</th>
+          <th>台灣手機</th>
+          <th>日本手機</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A 車（神戶進出）</td>
+          <td><strong>蕭明智</strong></td>
+          <td><a class="phone-link" href="tel:0930856341">0930-856-341</a></td>
+          <td><a class="phone-link" href="tel:+81701435402">070-1435-4021</a></td>
+        </tr>
+        <tr>
+          <td>B 車（大阪進出）</td>
+          <td><strong>柯邑翰</strong></td>
+          <td><a class="phone-link" href="tel:0979683913">0979-683-913</a></td>
+          <td><a class="phone-link" href="tel:+81701383785">070-1383-7856</a></td>
+        </tr>
+        <tr>
+          <td>C 車（大阪進出）</td>
+          <td><strong>絲啟瑞</strong></td>
+          <td><a class="phone-link" href="tel:0920300561">0920-300-561</a></td>
+          <td><a class="phone-link" href="tel:+81506881572">050-6881-5725</a></td>
+        </tr>
+        <tr>
+          <td>送機人員</td>
+          <td>—</td>
+          <td>
+            <a class="phone-link" href="tel:0910062165">0910-062-165</a>
+            <a class="phone-link" href="tel:0975112771">0975-112-771</a>
+          </td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ FLIGHT ══ -->
+<section id="flight">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">飛</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Flight Schedule</span>
+        <div class="section-title">航班時程</div>
+      </div>
+    </div>
+
+    <!-- A 車 -->
+    <div class="flight-group">
+      <div class="flight-badge">A 車 · 神戶進出</div>
+      <div class="flight-row">
+        <div class="flight-cell"><span class="flight-cell-label">日期</span><span class="flight-cell-value">05 / 08</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">出發</span><span class="flight-cell-value">台北 → 神戶</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">航班</span><span class="flight-cell-value">BR-134</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">起飛</span><span class="flight-cell-value">06:30</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">抵達</span><span class="flight-cell-value">10:05</span></div>
+      </div>
+      <div class="flight-row">
+        <div class="flight-cell"><span class="flight-cell-label">日期</span><span class="flight-cell-value">05 / 11</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">出發</span><span class="flight-cell-value">神戶 → 台北</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">航班</span><span class="flight-cell-value">BR-133</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">起飛</span><span class="flight-cell-value">11:10</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">抵達</span><span class="flight-cell-value">13:15</span></div>
+      </div>
+    </div>
+
+    <!-- B 車 -->
+    <div class="flight-group">
+      <div class="flight-badge">B 車 · 大阪進出（4日）</div>
+      <div class="flight-row">
+        <div class="flight-cell"><span class="flight-cell-label">日期</span><span class="flight-cell-value">05 / 08</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">出發</span><span class="flight-cell-value">台北 → 大阪</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">航班</span><span class="flight-cell-value">BR-178</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">起飛</span><span class="flight-cell-value">06:30</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">抵達</span><span class="flight-cell-value">10:10</span></div>
+      </div>
+      <div class="flight-row">
+        <div class="flight-cell"><span class="flight-cell-label">日期</span><span class="flight-cell-value">05 / 11</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">出發</span><span class="flight-cell-value">大阪 → 台北</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">航班</span><span class="flight-cell-value">BR-177</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">起飛</span><span class="flight-cell-value">11:10</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">抵達</span><span class="flight-cell-value">13:05</span></div>
+      </div>
+    </div>
+
+    <!-- C 車 -->
+    <div class="flight-group">
+      <div class="flight-badge">C 車 · 大阪進出（6日）</div>
+      <div class="flight-row">
+        <div class="flight-cell"><span class="flight-cell-label">日期</span><span class="flight-cell-value">05 / 08</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">出發</span><span class="flight-cell-value">台北 → 大阪</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">航班</span><span class="flight-cell-value">BR-178</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">起飛</span><span class="flight-cell-value">06:30</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">抵達</span><span class="flight-cell-value">10:10</span></div>
+      </div>
+      <div class="flight-row">
+        <div class="flight-cell"><span class="flight-cell-label">日期</span><span class="flight-cell-value">05 / 13</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">出發</span><span class="flight-cell-value">大阪 → 台北</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">航班</span><span class="flight-cell-value">BR-131</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">起飛</span><span class="flight-cell-value">13:10</span></div>
+        <div class="flight-cell"><span class="flight-cell-label">抵達</span><span class="flight-cell-value">15:05</span></div>
+      </div>
+    </div>
+
+    <div class="matcha-box">
+      ✦ 行李規定：托運 <strong>1 件 23 公斤</strong>（總尺寸上限 158 cm）；手提 <strong>1 件 7 公斤</strong>。超重依航空公司規定額外付費。
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOTELS ══ -->
+<section id="hotels">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">宿</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Accommodation</span>
+        <div class="section-title">住宿飯店</div>
+      </div>
+    </div>
+
+    <div class="hotel-grid">
+      <div class="hotel-card">
+        <div class="hotel-img">＋ 京都蒙特利飯店外觀圖片</div>
+        <div class="hotel-body">
+          <div class="hotel-nights">第 1 天 · 05 / 08 入住</div>
+          <div class="hotel-name">京都蒙特利飯店</div>
+          <div class="hotel-name-en">HOTEL MONTEREY KYOTO</div>
+          <div class="hotel-info">
+            京都府京都市中京區烏丸通三條相輕萬壽屋町 604<br>
+            TEL：<a href="tel:+81752517111">075-251-7111</a><br><br>
+            融合蘇格蘭愛丁堡工藝風格與京都文化精髓，兩座古都的姐妹情誼體現於設計之中。
+          </div>
+        </div>
+      </div>
+      <div class="hotel-card">
+        <div class="hotel-img">＋ 大阪難波萬楓酒店外觀圖片</div>
+        <div class="hotel-body">
+          <div class="hotel-nights">第 2–3 天 · 05 / 09–10 入住</div>
+          <div class="hotel-name">大阪難波萬楓酒店</div>
+          <div class="hotel-name-en">FAIRFIELD BY MARRIOTT OSAKA NAMBA</div>
+          <div class="hotel-info">
+            日本大阪市浪速區元町 2-3-25<br>
+            TEL：<a href="tel:+81666494111">81 6-6649-4111</a><br><br>
+            2020 年開幕，位於難波美食文化中心，地理便利，佈置簡潔溫馨。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ITINERARY ══ -->
+<section id="itinerary">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">程</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Daily Schedule</span>
+        <div class="section-title">每日行程</div>
+      </div>
+    </div>
+
+    <!-- DAY 1 -->
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-number">
+          <div class="day-number-text">DAY<br>01</div>
+          <div class="day-number-date">05 / 08</div>
+        </div>
+        <div class="day-title">
+          台北 → 大阪關西國際空港<br>
+          世界遺產宇治平等院 ～ 表參道老街散策<br>
+          <span style="color:var(--matcha);font-size:0.85em;">✦ 特別安排：抹茶體驗 ＋ 日式和菓子點心</span>
+        </div>
+      </div>
+      <div class="spot-list">
+        <div class="spot-item">
+          <div class="spot-name">🏯 宇治平等院（世界文化遺產）</div>
+          <div class="spot-desc">擁有千年歷史的平安建築代表，10 圓硬幣圖案即源自於此，亦入選「香味風景 100 選」。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">🍵 平等院表參道</div>
+          <div class="spot-desc">室町時代起即開業的宇治茶老字號林立，整條街道飄散優雅茶香。</div>
+        </div>
+        <div class="img-placeholder">＋ 平等院 / 抹茶體驗 圖片</div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-badge"><span class="meal-icon">🍱</span> 午餐｜機上精緻餐食 + 壽司餐盒</div>
+        <div class="meal-badge"><span class="meal-icon">🥂</span> 晚餐｜飯店 Welcome Party</div>
+      </div>
+      <div class="hotel-badge">🏨 住宿｜京都蒙特利飯店</div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-number">
+          <div class="day-number-text">DAY<br>02</div>
+          <div class="day-number-date">05 / 09</div>
+        </div>
+        <div class="day-title">
+          河合神社 ～ 糺之森 ～ 下鴨神社<br>
+          琵琶湖遊覽船 ～ 大原三千院 ～ 免稅店 → 大阪
+        </div>
+      </div>
+      <div class="spot-list">
+        <div class="spot-item">
+          <div class="spot-name">⛩ 河合神社（日本第一美人神社）</div>
+          <div class="spot-desc">主祭神為玉衣姬，守護女性美麗、安產、姻緣、學業。可購鏡繪馬祈求青春美麗。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">🌿 糺之森</div>
+          <div class="spot-desc">京都唯一原生林，高聳古樹圍繞的參拜道路，靜謐清幽。近楼門有「緣結神樹」。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">⛩ 下鴨神社</div>
+          <div class="spot-desc">京都最古老神社之一，正式名稱賀茂御祖神社。53 棟社殿為國家重要文化財，每年 5/15 舉辦葵祭。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">🚢 琵琶湖遊覽船（密西根號）</div>
+          <div class="spot-desc">世界第三古老的湖泊，面積 670 平方公里，歷史逾 400 萬年。乘「密西根」號巡遊，船上享用自助午餐。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">🍃 大原三千院</div>
+          <div class="spot-desc">天台宗寺院，起源平安時代，歷代皇族崇敬之地。苔庭童地藏四季皆美，宛如世外桃源。</div>
+        </div>
+        <div class="img-placeholder">＋ 河合神社 / 三千院 / 琵琶湖 圖片</div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-badge"><span class="meal-icon">🍳</span> 早餐｜飯店內</div>
+        <div class="meal-badge"><span class="meal-icon">🍽️</span> 午餐｜船上自助饗宴</div>
+        <div class="meal-badge"><span class="meal-icon">🛒</span> 晚餐｜自理（逛街）</div>
+      </div>
+      <div class="hotel-badge">🏨 住宿｜大阪難波萬楓酒店</div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-number">
+          <div class="day-number-text">DAY<br>03</div>
+          <div class="day-number-date">05 / 10</div>
+        </div>
+        <div class="day-title">
+          整日自由行・大阪逛街採購<br>
+          <span style="color:var(--matcha);font-size:0.85em;">（不含行程、車輛，以下為建議景點）</span>
+        </div>
+      </div>
+      <div class="spot-list">
+        <div class="spot-item">
+          <div class="spot-name">🌸 京都嵐山・渡月橋</div>
+          <div class="spot-desc">昔日山天皇因皓月橫空而命名，可欣賞大堰川風光，嵯峨野竹林步道靜幽詩情。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">🏛 清水寺（世界文化遺產）</div>
+          <div class="spot-desc">起源 8 世紀，現存建築為 1633 年重建，可從本殿展望台眺望京都市街。</div>
+        </div>
+        <div class="spot-item">
+          <div class="spot-name">💧 音羽瀧</div>
+          <div class="spot-desc">日本十大名水之首，有「金色水」「延命水」之稱。</div>
+        </div>
+        <div class="img-placeholder">＋ 嵐山 / 清水寺 圖片</div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-badge"><span class="meal-icon">🍳</span> 早餐｜飯店內</div>
+        <div class="meal-badge"><span class="meal-icon">🛒</span> 午餐｜自理</div>
+        <div class="meal-badge"><span class="meal-icon">🛒</span> 晚餐｜自理</div>
+      </div>
+      <div class="hotel-badge">🏨 住宿｜大阪難波萬楓酒店</div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-number" style="background:linear-gradient(135deg,#c4933f,#a07030);">
+          <div class="day-number-text">DAY<br>04</div>
+          <div class="day-number-date">05 / 11</div>
+        </div>
+        <div class="day-title">
+          飯店 → 關西國際空港 → 台北<br>
+          <span style="color:var(--gold);font-size:0.85em;">機場商店街自由購物後，返回溫暖的家</span>
+        </div>
+      </div>
+      <div class="meal-row" style="padding-left:0;margin-left:0;">
+        <div class="meal-badge"><span class="meal-icon">🍳</span> 早餐｜飯店內</div>
+        <div class="meal-badge"><span class="meal-icon">✈️</span> 午餐｜機上精緻餐食</div>
+      </div>
+      <div class="hotel-badge" style="margin-left:0;">🏠 住宿｜溫暖的家</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOTICES ══ -->
+<section id="notices">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">注</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Important Notes</span>
+        <div class="section-title">日本旅遊注意事項</div>
+      </div>
+    </div>
+
+    <div class="notice-accordion">
+      <button class="notice-btn open" onclick="toggleAccordion(this)">
+        ✈️ &nbsp;出境與行李規定
+        <span class="arrow">▲</span>
+      </button>
+      <div class="notice-content open">
+        <ul class="notice-list">
+          <li>請<span class="highlight-red">提前 2.5 小時</span>到指定櫃台集合，延誤損失自行負責</li>
+          <li>托運大行李每人限 1 件 23 公斤（總尺寸 ≤158cm）；手提限 7 公斤</li>
+          <li>禁止攜帶槍械、刀具及汽油類物品上飛機</li>
+          <li>入出境時切勿接受他人委託攜帶任何物品</li>
+          <li>護照效期須於回程日起 6 個月以上；破損護照恐遭拒絕入境</li>
+          <li>行動電源及備用鋰電池<span class="highlight-red">不可托運、不可機上使用或充電</span>（自 2025/3/1 起）；容量上限 32,000 mAh，20,000–32,000 mAh 限帶 2 個</li>
+          <li>隨身手提液體每瓶 ≤100ml，密封於透明袋，總容量 ≤1 公升</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notice-accordion">
+      <button class="notice-btn" onclick="toggleAccordion(this)">
+        💴 &nbsp;外幣與退稅
+        <span class="arrow">▼</span>
+      </button>
+      <div class="notice-content">
+        <ul class="notice-list">
+          <li>新台幣現金不超過 NT$100,000；美金（或等值外幣）不超過 USD 10,000</li>
+          <li>台幣<span class="highlight-red">不可直接換日圓</span>，請在台灣先行換匯</li>
+          <li>日圓現金最方便；部分商家僅收 JCB 卡</li>
+          <li>退稅需看到「Japan Tax-free Shop」標章；單筆未稅 ¥5,000 以上方可退稅</li>
+          <li>退稅記得帶護照；藥妝店免稅品會用密封袋封裝，出境前不得拆開</li>
+          <li><span class="highlight-red">日本機場不接受機場外消費的退稅</span>，市區收據請在市區退稅</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notice-accordion">
+      <button class="notice-btn" onclick="toggleAccordion(this)">
+        🏨 &nbsp;飯店禮儀
+        <span class="arrow">▼</span>
+      </button>
+      <div class="notice-content">
+        <ul class="notice-list">
+          <li>兩人一室；外出時將鑰匙放置櫃台，並帶飯店名片備用</li>
+          <li>房內吧台零食、冰箱飲料均需付費，退房時結帳</li>
+          <li>冰箱為電腦控制式，食品取出即計費不可退回</li>
+          <li>電熱水壺僅供煮水，不可加入食材；亦不可置於電磁爐上加熱</li>
+          <li>各飯店<span class="highlight-red">禁止房內吸菸</span>，違規罰緩由個人自負</li>
+          <li>勿著日式睡衣在大廳走動（溫泉區除外）</li>
+          <li>入浴時浴簾置於浴缸內，防止積水外溢</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notice-accordion">
+      <button class="notice-btn" onclick="toggleAccordion(this)">
+        ♨️ &nbsp;日本泡湯須知
+        <span class="arrow">▼</span>
+      </button>
+      <div class="notice-content">
+        <ul class="notice-list">
+          <li>入浴前徹底清洗身體</li>
+          <li>日本全裸入浴，禁止穿泳衣或內衣</li>
+          <li>嚴禁拍照攝影；刺青者請事先確認規定</li>
+          <li>泡湯最長 15 分鐘；感覺不適即起來沖冷水</li>
+          <li>孕婦、心臟病、皮膚病患者或皮膚有傷口者<span class="highlight-red">請勿泡湯</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notice-accordion">
+      <button class="notice-btn" onclick="toggleAccordion(this)">
+        🛃 &nbsp;回國入關
+        <span class="arrow">▼</span>
+      </button>
+      <div class="notice-content">
+        <ul class="notice-list">
+          <li>攜帶外幣入境不限金額，但每人外幣 USD 5,000 以上須申報，未申報超額部分予以沒收</li>
+          <li>返台免稅菸酒（20 歲以上）：菸一條、酒一瓶（1.5 公升）</li>
+          <li>加熱菸、電子煙<span class="highlight-red">均不得攜帶入境</span></li>
+          <li>禁止攜帶槍械、刀具、毒品、疫區花卉水果、保育類野生動物及其產品</li>
+          <li>保險：本公司已投保旅行業綜合保險 500 萬及 20 萬醫療保險，旅客可自行加保</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PACKING ══ -->
+<section id="packing">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">備</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Packing List</span>
+        <div class="section-title">旅遊攜帶物品參考</div>
+      </div>
+    </div>
+
+    <div class="pack-grid">
+      <div class="pack-cat">
+        <div class="pack-cat-title">👕 基本衣物</div>
+        <div class="pack-item">內衣褲、襪子</div>
+        <div class="pack-item">睡衣</div>
+        <div class="pack-item">拖鞋</div>
+        <div class="pack-item">連帽外套（早晚溫差大）</div>
+        <div class="pack-item">雨衣或雨傘</div>
+        <div class="pack-item">休閒鞋（避免高跟鞋）</div>
+      </div>
+      <div class="pack-cat">
+        <div class="pack-cat-title">🪥 盥洗保養</div>
+        <div class="pack-item">牙刷、牙膏</div>
+        <div class="pack-item">洗髮、沐浴乳</div>
+        <div class="pack-item">刮鬍用品</div>
+        <div class="pack-item">防曬、保濕乳液</div>
+        <div class="pack-item">化妝保養品</div>
+        <div class="pack-item">防蚊液</div>
+      </div>
+      <div class="pack-cat">
+        <div class="pack-cat-title">💊 個人藥品</div>
+        <div class="pack-item">暈車藥</div>
+        <div class="pack-item">胃腸藥</div>
+        <div class="pack-item">感冒藥、止痛藥</div>
+        <div class="pack-item">OK 繃、酒精</div>
+        <div class="pack-item">個人常備藥物</div>
+      </div>
+      <div class="pack-cat">
+        <div class="pack-cat-title">📄 重要文件</div>
+        <div class="pack-item">護照（效期 ≥6 個月）</div>
+        <div class="pack-item">護照影本（備份）</div>
+        <div class="pack-item">信用卡影本</div>
+        <div class="pack-item">醫療保險卡</div>
+        <div class="pack-item">行程手冊</div>
+        <div class="pack-item">緊急聯絡人資訊</div>
+      </div>
+      <div class="pack-cat">
+        <div class="pack-cat-title">💴 財務</div>
+        <div class="pack-item">日圓現金（建議在台換匯）</div>
+        <div class="pack-item">信用卡、提款卡</div>
+        <div class="pack-item">台幣 ≤NT$100,000</div>
+        <div class="pack-item">美金等值外幣 ≤USD 10,000</div>
+      </div>
+      <div class="pack-cat">
+        <div class="pack-cat-title">📱 3C 用品</div>
+        <div class="pack-item">手機及充電器</div>
+        <div class="pack-item">網卡 / WIFI 機</div>
+        <div class="pack-item">行動電源（≤32,000mAh）</div>
+        <div class="pack-item">相機及記憶卡</div>
+        <div class="pack-item">電源轉換器（日本 100V）</div>
+      </div>
+    </div>
+
+    <div class="alert-box" style="margin-top:1.5rem;">
+      ⚠️ 貴重物品及常備藥品請隨身攜帶，切勿放置於托運行李、房間或車上。請勿穿戴名貴手錶、鑽戒等出遊，以免引來不必要的麻煩。
+    </div>
+  </div>
+</section>
+
+<!-- ══ ROOMS ══ -->
+<section id="rooms">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">房</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Room Assignment</span>
+        <div class="section-title">團體分房表</div>
+      </div>
+    </div>
+
+    <!-- TAB SWITCHER -->
+    <div class="room-tabs">
+      <button class="room-tab active" onclick="switchTab('A')">A 車</button>
+      <button class="room-tab" onclick="switchTab('B')">B 車</button>
+      <button class="room-tab" onclick="switchTab('C')">C 車</button>
+    </div>
+
+    <!-- A 車 -->
+    <div id="tab-A" class="room-panel">
+      <div class="room-note">A 車導遊：蕭明智（神戶進出）</div>
+      <table class="room-table">
+        <thead><tr><th>編號</th><th>姓名</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>鍾育諺</td><td></td></tr>
+          <tr><td>02</td><td>趙志乾</td><td></td></tr>
+          <tr><td>03</td><td>李嬑安</td><td></td></tr>
+          <tr><td>04</td><td>劉馨文</td><td></td></tr>
+          <tr><td>05</td><td>李 怜</td><td></td></tr>
+          <tr><td>06</td><td>劉瑤雯</td><td></td></tr>
+          <tr><td>07</td><td>陳俐蓁</td><td></td></tr>
+          <tr><td>08</td><td>董豐稷</td><td></td></tr>
+          <tr><td>09</td><td>邱琪峰</td><td></td></tr>
+          <tr><td>10</td><td>陳示珮</td><td></td></tr>
+          <tr><td>11</td><td>徐嘉駿</td><td></td></tr>
+          <tr><td>12</td><td>楊智宇</td><td></td></tr>
+          <tr><td>13</td><td>朱弘正</td><td></td></tr>
+          <tr><td>14</td><td>宋慶譁</td><td></td></tr>
+          <tr><td>15</td><td>甘能譯</td><td></td></tr>
+          <tr><td>16</td><td>林宗諺</td><td></td></tr>
+          <tr><td>17</td><td>蔡奇紘</td><td></td></tr>
+          <tr><td>18</td><td>蔡欣哲</td><td></td></tr>
+          <tr><td>19</td><td>龔哲緯</td><td></td></tr>
+          <tr><td>20</td><td>黃益國</td><td></td></tr>
+          <tr><td>21</td><td>沈家豪</td><td></td></tr>
+          <tr><td>22</td><td>官業博</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>17</td><td>洪嘉豪</td><td></td></tr>
+          <tr><td>18</td><td>謝明軒</td><td class="room-cross">※ C 車</td></tr>
+          <tr><td>19</td><td>翁子傑</td><td></td></tr>
+          <tr><td>20</td><td>劉岳峯</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>21</td><td>張巧蒂</td><td></td></tr>
+          <tr><td>22</td><td>林均薇</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>23</td><td>許少易</td><td></td></tr>
+          <tr><td>24</td><td>陳庭儀</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>25</td><td>陳勤文</td><td></td></tr>
+          <tr><td>26</td><td>向信學</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>27</td><td>麥德西</td><td></td></tr>
+          <tr><td>28</td><td>郭 漾</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>29</td><td>廖聿婕</td><td></td></tr>
+          <tr><td>30</td><td>曾婉瑜</td><td class="room-cross">※ C 車</td></tr>
+          <tr><td>31</td><td>廖芸巧</td><td></td></tr>
+          <tr><td>32</td><td>李翊瑄</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>33</td><td>趙 虹</td><td></td></tr>
+          <tr><td>34</td><td>楊易穎</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>35</td><td>林承慧</td><td></td></tr>
+          <tr><td>36</td><td>葉 雲</td><td class="room-cross">※ B 車</td></tr>
+          <tr class="room-guide"><td>37</td><td>蕭明智</td><td>導遊</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- B 車 -->
+    <div id="tab-B" class="room-panel" style="display:none;">
+      <div class="room-note">B 車導遊：柯邑翰（大阪進出）</div>
+      <table class="room-table">
+        <thead><tr><th>編號</th><th>姓名</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>莊子昀</td><td></td></tr>
+          <tr><td>02</td><td>陳韻如</td><td></td></tr>
+          <tr><td>03</td><td>傅品方</td><td></td></tr>
+          <tr><td>04</td><td>劉培萱</td><td></td></tr>
+          <tr><td>05</td><td>許明哲</td><td></td></tr>
+          <tr><td>06</td><td>朱宥任</td><td></td></tr>
+          <tr><td>07</td><td>黃品菁</td><td></td></tr>
+          <tr><td>08</td><td>魏孟涵</td><td></td></tr>
+          <tr><td>09</td><td>蔡晴如</td><td></td></tr>
+          <tr><td>10</td><td>陳立欣</td><td></td></tr>
+          <tr><td>11</td><td>曾建評</td><td></td></tr>
+          <tr><td>12</td><td>曾楷崴</td><td></td></tr>
+          <tr><td>13</td><td>林祺堂</td><td></td></tr>
+          <tr><td>14</td><td>張憲康</td><td></td></tr>
+          <tr><td>15</td><td>謝立成</td><td></td></tr>
+          <tr><td>16</td><td>邱毅柏</td><td></td></tr>
+          <tr><td>17</td><td>黃炫誠</td><td></td></tr>
+          <tr><td>18</td><td>高斯宇</td><td></td></tr>
+          <tr><td>19</td><td>吳昇峰</td><td></td></tr>
+          <tr><td>20</td><td>許力中</td><td></td></tr>
+          <tr><td>21</td><td>李翊瑄</td><td></td></tr>
+          <tr><td>22</td><td>廖芸巧</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>23</td><td>郭 漾</td><td></td></tr>
+          <tr><td>24</td><td>麥德西</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>25</td><td>陳庭儀</td><td></td></tr>
+          <tr><td>26</td><td>許少易</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>27</td><td>林均薇</td><td></td></tr>
+          <tr><td>28</td><td>張巧蒂</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>29</td><td>官業博</td><td></td></tr>
+          <tr><td>30</td><td>沈家豪</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>31</td><td>劉岳峯</td><td></td></tr>
+          <tr><td>32</td><td>翁子傑</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>33</td><td>賴韋豪</td><td></td></tr>
+          <tr><td>34</td><td>蔡維宸</td><td class="room-cross">※ C 車</td></tr>
+          <tr><td>35</td><td>葉 雲</td><td></td></tr>
+          <tr><td>36</td><td>林承慧</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>37</td><td>楊易穎</td><td></td></tr>
+          <tr><td>38</td><td>趙 虹</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>39</td><td>向信學</td><td></td></tr>
+          <tr><td>40</td><td>陳勤文</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>41</td><td>倉地靖子</td><td></td></tr>
+          <tr><td>42</td><td>蕭 喬</td><td class="room-cross">※ C 車</td></tr>
+          <tr><td>43</td><td>侯維亨</td><td></td></tr>
+          <tr><td>44</td><td>胡雅若</td><td></td></tr>
+          <tr><td>45</td><td>侯星煥</td><td></td></tr>
+          <tr class="room-guide"><td>46</td><td>柯邑翰</td><td>導遊</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- C 車 -->
+    <div id="tab-C" class="room-panel" style="display:none;">
+      <div class="room-note">C 車導遊：絲啟瑞（大阪進出）</div>
+      <table class="room-table">
+        <thead><tr><th>編號</th><th>姓名</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>ROBERT PEH YUAN</td><td></td></tr>
+          <tr><td>02</td><td>SHEU PHILIP</td><td></td></tr>
+          <tr><td>03</td><td>張佩琪</td><td></td></tr>
+          <tr><td>04</td><td>曹峻銘</td><td></td></tr>
+          <tr><td>05</td><td>黃子鑌</td><td></td></tr>
+          <tr><td>06</td><td>黃袁宇</td><td></td></tr>
+          <tr><td>07</td><td>許茵茵</td><td></td></tr>
+          <tr><td>08</td><td>鄭思瑀</td><td></td></tr>
+          <tr><td>09</td><td>陳映璇</td><td></td></tr>
+          <tr><td>10</td><td>曾凡瑄</td><td></td></tr>
+          <tr><td>11</td><td>羅繼理</td><td></td></tr>
+          <tr><td>12</td><td>林中杰</td><td></td></tr>
+          <tr><td>13</td><td>陳柏源</td><td></td></tr>
+          <tr><td>14</td><td>蘇柏銘</td><td></td></tr>
+          <tr><td>15</td><td>馮俊彥</td><td></td></tr>
+          <tr><td>16</td><td>蔣仲甫</td><td></td></tr>
+          <tr><td>17</td><td>李翊賓</td><td></td></tr>
+          <tr><td>18</td><td>張學平</td><td></td></tr>
+          <tr><td>19</td><td>楊博儒</td><td></td></tr>
+          <tr><td>20</td><td>蔡孟倫</td><td></td></tr>
+          <tr><td>21</td><td>蔡松栩</td><td></td></tr>
+          <tr><td>22</td><td>魏 瑋</td><td></td></tr>
+          <tr><td>23</td><td>黃允愷</td><td></td></tr>
+          <tr><td>24</td><td>黃致遠</td><td></td></tr>
+          <tr><td>25</td><td>陳士揚</td><td></td></tr>
+          <tr><td>26</td><td>陳定暐</td><td></td></tr>
+          <tr><td>27</td><td>蔡文彬</td><td></td></tr>
+          <tr><td>28</td><td>連惠華</td><td></td></tr>
+          <tr><td>29</td><td>曾婉瑜</td><td></td></tr>
+          <tr><td>30</td><td>廖聿婕</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>31</td><td>蕭 喬</td><td></td></tr>
+          <tr><td>32</td><td>倉地靖子</td><td class="room-cross">※ B 車</td></tr>
+          <tr><td>33</td><td>謝明軒</td><td></td></tr>
+          <tr><td>34</td><td>洪嘉豪</td><td class="room-cross">※ A 車</td></tr>
+          <tr><td>35</td><td>蔡維宸</td><td></td></tr>
+          <tr><td>36</td><td>賴韋豪</td><td class="room-cross">※ B 車</td></tr>
+          <tr class="room-guide"><td>37</td><td>絲啟瑞</td><td>導遊</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CONTACTS ══ -->
+<section id="contacts">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-kanji">連</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Emergency Contacts</span>
+        <div class="section-title">導遊緊急聯絡</div>
+      </div>
+    </div>
+
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-bus">A 車 · 神戶進出</div>
+        <div class="contact-name">蕭明智</div>
+        <div class="contact-phone">
+          <strong>台灣手機</strong>0930-856-341
+          <strong>日本手機</strong>070-1435-4021
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-bus">B 車 · 大阪進出</div>
+        <div class="contact-name">柯邑翰</div>
+        <div class="contact-phone">
+          <strong>台灣手機</strong>0979-683-913
+          <strong>日本手機</strong>070-1383-7856
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-bus">C 車 · 大阪進出</div>
+        <div class="contact-name">絲啟瑞</div>
+        <div class="contact-phone">
+          <strong>台灣手機</strong>0920-300-561
+          <strong>日本手機</strong>050-6881-5725
+        </div>
+      </div>
+      <div class="contact-card" style="background:var(--nori);">
+        <div class="contact-bus">桃園機場服務中心</div>
+        <div class="contact-name" style="font-size:1rem;">家人接機查詢</div>
+        <div class="contact-phone">
+          <strong>電話</strong>(03) 398-3274
+          <strong>送機人員</strong>0910-062-165<br>0975-112-771
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-title">漫遊關西 · 古都秘境散策四日</div>
+  <p>出發日期 2025.05.08 &nbsp;·&nbsp; 長榮航空 &nbsp;·&nbsp; 京都 · 大阪</p>
+  <p style="margin-top:0.5rem;">旅途平安，乘興而去，興盡而返 &nbsp;✦</p>
+</footer>
+
+<script>
+  function switchTab(car) {
+    ['A','B','C'].forEach(c => {
+      document.getElementById('tab-' + c).style.display = c === car ? 'block' : 'none';
+    });
+    document.querySelectorAll('.room-tab').forEach((btn, i) => {
+      btn.classList.toggle('active', ['A','B','C'][i] === car);
+    });
+  }
+
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const arrow = btn.querySelector('.arrow');
+    const isOpen = content.classList.contains('open');
+    content.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+    arrow.textContent = isOpen ? '▼' : '▲';
+  }
+</script>
+
+</body>
+</html>
