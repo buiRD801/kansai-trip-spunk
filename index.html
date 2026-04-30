@@ -24,13 +24,21 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* 全站最小字體 14pt ≈ 18.67px，以 clamp 保底 */
+  :root { --min-font: max(14pt, 1em); }
+
   body {
     font-family: 'Noto Sans TC', sans-serif;
     background: var(--washi);
     color: var(--ink);
     font-weight: 300;
     line-height: 1.8;
-    font-size: 216%;
+    font-size: 20px; /* 重設基準，讓 em 單位好計算 */
+  }
+
+  /* 強制任何元素字體不低於 14pt */
+  body * {
+    font-size: max(inherit, 14pt);
   }
 
   /* ── HERO ── */
