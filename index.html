@@ -24,21 +24,21 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* 全站最小字體 14pt ≈ 18.67px，以 clamp 保底 */
-  :root { --min-font: max(14pt, 1em); }
+  /* 全站最小字體 18pt */
+  :root { --min-font: 18pt; }
 
   body {
     font-family: 'Noto Sans TC', sans-serif;
     background: var(--washi);
     color: var(--ink);
     font-weight: 300;
-    line-height: 1.8;
-    font-size: 20px; /* 重設基準，讓 em 單位好計算 */
+    line-height: 1.9;
+    font-size: 18pt;
   }
 
-  /* 強制任何元素字體不低於 14pt */
+  /* 強制任何元素字體不低於 18pt */
   body * {
-    font-size: max(inherit, 14pt);
+    font-size: max(inherit, 18pt);
   }
 
   /* ── HERO ── */
@@ -795,6 +795,59 @@
     line-height: 1.9;
   }
 
+  .room-legend {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--sumi);
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .legend-pair { color: var(--nori); font-weight: 500; }
+  .legend-single { color: var(--gold); font-weight: 500; }
+
+  tr.room-pair-a td { background: rgba(107,124,69,0.08); }
+  tr.room-pair-b td { background: rgba(196,147,63,0.08); }
+  tr.room-single td { background: rgba(192,57,43,0.06); color: var(--vermillion); }
+
+  /* 餐桌分配 */
+  .dining-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .dining-table-card {
+    background: white;
+    border: 1px solid rgba(107,124,69,0.15);
+    border-top: 3px solid var(--matcha);
+    padding: 1rem 1.2rem;
+  }
+
+  .dining-table-label {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--nori);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .dining-members {
+    font-size: 0.8rem;
+    color: var(--sumi);
+    line-height: 1.8;
+  }
+
+  .dining-members small {
+    color: rgba(45,36,22,0.5);
+    font-size: 0.72rem;
+    display: block;
+    margin-top: 0.3rem;
+  }
+
   /* ── ROOMS ── */
   #rooms { background: var(--washi); }
 
@@ -892,11 +945,60 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  @media (max-width: 600px) {
-    .spot-list, .meal-row, .hotel-badge { padding-left: 0; margin-left: 0; }
+  @media (max-width: 768px) {
+    /* 導覽列 */
+    nav { justify-content: flex-start; }
+    nav a { padding: 0.75rem 0.9rem; letter-spacing: 0.05em; }
+
+    /* Section 間距縮小 */
+    .section { padding: 3rem 1.2rem; }
+
+    /* Hero */
+    .hero-content { padding: 3rem 1.2rem 2rem; }
+    .hero-meta { gap: 1rem; }
+    .hero-meta-item { padding-left: 0 !important; margin-left: 0 !important; border: none !important; }
+
+    /* 集合資訊 */
+    .meeting-grid { grid-template-columns: 1fr; }
+    .guide-table { font-size: 0.85rem; display: block; overflow-x: auto; }
+
+    /* 航班 */
+    .flight-row { grid-template-columns: 1fr 1fr; }
+
+    /* 飯店 */
+    .hotel-grid { grid-template-columns: 1fr; }
+
+    /* 行程時間軸 */
+    .spot-list { padding-left: 0; }
+    .meal-row { padding-left: 0; margin-left: 0; }
+    .hotel-badge { margin-left: 0; }
     .day-block::before { display: none; }
-    .day-header { flex-direction: column; align-items: flex-start; }
-    nav a { padding: 0.75rem 1rem; font-size: 0.72rem; }
+    .day-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .day-number { width: 80px; height: 80px; }
+    .spot-item::before { display: none; }
+
+    /* 圖片 */
+    .day-block img { height: 160px !important; }
+
+    /* 分房表 */
+    .room-tabs { overflow-x: auto; }
+    .room-tab { padding: 0.7rem 1.2rem; white-space: nowrap; }
+    .room-table { font-size: 0.85rem; }
+
+    /* 攜帶物品 */
+    .pack-grid { grid-template-columns: 1fr 1fr; }
+
+    /* 聯絡人 */
+    .contact-cards { grid-template-columns: 1fr; }
+
+    /* 區塊標題 */
+    .section-kanji { font-size: 2.5rem; }
+  }
+
+  @media (max-width: 400px) {
+    .pack-grid { grid-template-columns: 1fr; }
+    .flight-row { grid-template-columns: 1fr; }
+    nav a { padding: 0.65rem 0.7rem; }
   }
 </style>
 </head>
@@ -1491,6 +1593,11 @@
       </div>
     </div>
 
+    <div class="room-legend">
+      <span class="legend-pair">■ 雙人房（同色為同房）</span>
+      <span class="legend-single">□ 單人房</span>
+    </div>
+
     <!-- TAB SWITCHER -->
     <div class="room-tabs">
       <button class="room-tab active" onclick="switchTab('A')">A 車</button>
@@ -1502,51 +1609,25 @@
     <div id="tab-A" class="room-panel">
       <div class="room-note">A 車導遊：蕭明智（神戶進出）</div>
       <table class="room-table">
-        <thead><tr><th>編號</th><th>姓名</th><th>備註</th></tr></thead>
+        <thead><tr><th>房號</th><th>旅客 1</th><th>旅客 2</th></tr></thead>
         <tbody>
-          <tr><td>01</td><td>鍾育諺</td><td></td></tr>
-          <tr><td>02</td><td>趙志乾</td><td></td></tr>
-          <tr><td>03</td><td>李嬑安</td><td></td></tr>
-          <tr><td>04</td><td>劉馨文</td><td></td></tr>
-          <tr><td>05</td><td>李 怜</td><td></td></tr>
-          <tr><td>06</td><td>劉瑤雯</td><td></td></tr>
-          <tr><td>07</td><td>陳俐蓁</td><td></td></tr>
-          <tr><td>08</td><td>董豐稷</td><td></td></tr>
-          <tr><td>09</td><td>邱琪峰</td><td></td></tr>
-          <tr><td>10</td><td>陳示珮</td><td></td></tr>
-          <tr><td>11</td><td>徐嘉駿</td><td></td></tr>
-          <tr><td>12</td><td>楊智宇</td><td></td></tr>
-          <tr><td>13</td><td>朱弘正</td><td></td></tr>
-          <tr><td>14</td><td>宋慶譁</td><td></td></tr>
-          <tr><td>15</td><td>甘能譯</td><td></td></tr>
-          <tr><td>16</td><td>林宗諺</td><td></td></tr>
-          <tr><td>17</td><td>蔡奇紘</td><td></td></tr>
-          <tr><td>18</td><td>蔡欣哲</td><td></td></tr>
-          <tr><td>19</td><td>龔哲緯</td><td></td></tr>
-          <tr><td>20</td><td>黃益國</td><td></td></tr>
-          <tr><td>21</td><td>沈家豪</td><td></td></tr>
-          <tr><td>22</td><td>官業博</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>17</td><td>洪嘉豪</td><td></td></tr>
-          <tr><td>18</td><td>謝明軒</td><td class="room-cross">※ C 車</td></tr>
-          <tr><td>19</td><td>翁子傑</td><td></td></tr>
-          <tr><td>20</td><td>劉岳峯</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>21</td><td>張巧蒂</td><td></td></tr>
-          <tr><td>22</td><td>林均薇</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>23</td><td>許少易</td><td></td></tr>
-          <tr><td>24</td><td>陳庭儀</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>25</td><td>陳勤文</td><td></td></tr>
-          <tr><td>26</td><td>向信學</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>27</td><td>麥德西</td><td></td></tr>
-          <tr><td>28</td><td>郭 漾</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>29</td><td>廖聿婕</td><td></td></tr>
-          <tr><td>30</td><td>曾婉瑜</td><td class="room-cross">※ C 車</td></tr>
-          <tr><td>31</td><td>廖芸巧</td><td></td></tr>
-          <tr><td>32</td><td>李翊瑄</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>33</td><td>趙 虹</td><td></td></tr>
-          <tr><td>34</td><td>楊易穎</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>35</td><td>林承慧</td><td></td></tr>
-          <tr><td>36</td><td>葉 雲</td><td class="room-cross">※ B 車</td></tr>
-          <tr class="room-guide"><td>37</td><td>蕭明智</td><td>導遊</td></tr>
+          <tr class="room-pair-a"><td>01–02</td><td>01 鍾育諺</td><td>02 趙志乾</td></tr>
+          <tr class="room-pair-b"><td>03–04</td><td>03 李嬑安</td><td>04 劉馨文</td></tr>
+          <tr class="room-pair-a"><td>05–06</td><td>05 李 怜</td><td>06 劉瑤雯</td></tr>
+          <tr class="room-pair-b"><td>07–08</td><td>07 陳俐蓁</td><td>08 董豐稷</td></tr>
+          <tr class="room-pair-a"><td>09–10</td><td>09 邱琪峰</td><td>10 陳示珮</td></tr>
+          <tr class="room-pair-b"><td>11–12</td><td>11 徐嘉駿</td><td>12 楊智宇</td></tr>
+          <tr class="room-pair-a"><td>13–14</td><td>13 朱弘正</td><td>14 宋慶譁</td></tr>
+          <tr class="room-pair-b"><td>15–16</td><td>15 甘能譯</td><td>16 林宗諺</td></tr>
+          <tr class="room-pair-a"><td>17–18</td><td>17 蔡奇紘</td><td>18 蔡欣哲</td></tr>
+          <tr class="room-pair-b"><td>19–20</td><td>19 龔哲緯</td><td>20 黃益國</td></tr>
+          <tr class="room-single"><td>21</td><td>21 沈家豪</td><td>—</td></tr>
+          <tr class="room-pair-a"><td>17–18</td><td>17 洪嘉豪</td><td>19 翁子傑</td></tr>
+          <tr class="room-pair-b"><td>21–23</td><td>21 張巧蒂</td><td>23 許少易</td></tr>
+          <tr class="room-pair-a"><td>25–27</td><td>25 陳勤文</td><td>27 麥德西</td></tr>
+          <tr class="room-pair-b"><td>29–31</td><td>29 廖聿婕</td><td>31 廖芸巧</td></tr>
+          <tr class="room-pair-a"><td>33–35</td><td>33 趙 虹</td><td>35 林承慧</td></tr>
+          <tr class="room-guide"><td>導遊</td><td colspan="2">蕭明智</td></tr>
         </tbody>
       </table>
     </div>
@@ -1555,54 +1636,26 @@
     <div id="tab-B" class="room-panel" style="display:none;">
       <div class="room-note">B 車導遊：柯邑翰（大阪進出）</div>
       <table class="room-table">
-        <thead><tr><th>編號</th><th>姓名</th><th>備註</th></tr></thead>
+        <thead><tr><th>房號</th><th>旅客 1</th><th>旅客 2</th></tr></thead>
         <tbody>
-          <tr><td>01</td><td>莊子昀</td><td></td></tr>
-          <tr><td>02</td><td>陳韻如</td><td></td></tr>
-          <tr><td>03</td><td>傅品方</td><td></td></tr>
-          <tr><td>04</td><td>劉培萱</td><td></td></tr>
-          <tr><td>05</td><td>許明哲</td><td></td></tr>
-          <tr><td>06</td><td>朱宥任</td><td></td></tr>
-          <tr><td>07</td><td>黃品菁</td><td></td></tr>
-          <tr><td>08</td><td>魏孟涵</td><td></td></tr>
-          <tr><td>09</td><td>蔡晴如</td><td></td></tr>
-          <tr><td>10</td><td>陳立欣</td><td></td></tr>
-          <tr><td>11</td><td>曾建評</td><td></td></tr>
-          <tr><td>12</td><td>曾楷崴</td><td></td></tr>
-          <tr><td>13</td><td>林祺堂</td><td></td></tr>
-          <tr><td>14</td><td>張憲康</td><td></td></tr>
-          <tr><td>15</td><td>謝立成</td><td></td></tr>
-          <tr><td>16</td><td>邱毅柏</td><td></td></tr>
-          <tr><td>17</td><td>黃炫誠</td><td></td></tr>
-          <tr><td>18</td><td>高斯宇</td><td></td></tr>
-          <tr><td>19</td><td>吳昇峰</td><td></td></tr>
-          <tr><td>20</td><td>許力中</td><td></td></tr>
-          <tr><td>21</td><td>李翊瑄</td><td></td></tr>
-          <tr><td>22</td><td>廖芸巧</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>23</td><td>郭 漾</td><td></td></tr>
-          <tr><td>24</td><td>麥德西</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>25</td><td>陳庭儀</td><td></td></tr>
-          <tr><td>26</td><td>許少易</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>27</td><td>林均薇</td><td></td></tr>
-          <tr><td>28</td><td>張巧蒂</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>29</td><td>官業博</td><td></td></tr>
-          <tr><td>30</td><td>沈家豪</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>31</td><td>劉岳峯</td><td></td></tr>
-          <tr><td>32</td><td>翁子傑</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>33</td><td>賴韋豪</td><td></td></tr>
-          <tr><td>34</td><td>蔡維宸</td><td class="room-cross">※ C 車</td></tr>
-          <tr><td>35</td><td>葉 雲</td><td></td></tr>
-          <tr><td>36</td><td>林承慧</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>37</td><td>楊易穎</td><td></td></tr>
-          <tr><td>38</td><td>趙 虹</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>39</td><td>向信學</td><td></td></tr>
-          <tr><td>40</td><td>陳勤文</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>41</td><td>倉地靖子</td><td></td></tr>
-          <tr><td>42</td><td>蕭 喬</td><td class="room-cross">※ C 車</td></tr>
-          <tr><td>43</td><td>侯維亨</td><td></td></tr>
-          <tr><td>44</td><td>胡雅若</td><td></td></tr>
-          <tr><td>45</td><td>侯星煥</td><td></td></tr>
-          <tr class="room-guide"><td>46</td><td>柯邑翰</td><td>導遊</td></tr>
+          <tr class="room-pair-a"><td>01–02</td><td>01 莊子昀</td><td>02 陳韻如</td></tr>
+          <tr class="room-pair-b"><td>03–04</td><td>03 傅品方</td><td>04 劉培萱</td></tr>
+          <tr class="room-pair-a"><td>05–06</td><td>05 許明哲</td><td>06 朱宥任</td></tr>
+          <tr class="room-pair-b"><td>07–08</td><td>07 黃品菁</td><td>08 魏孟涵</td></tr>
+          <tr class="room-pair-a"><td>09–10</td><td>09 蔡晴如</td><td>10 陳立欣</td></tr>
+          <tr class="room-pair-b"><td>11–12</td><td>11 曾建評</td><td>12 曾楷崴</td></tr>
+          <tr class="room-pair-a"><td>13–14</td><td>13 林祺堂</td><td>14 張憲康</td></tr>
+          <tr class="room-pair-b"><td>15–16</td><td>15 謝立成</td><td>16 邱毅柏</td></tr>
+          <tr class="room-pair-a"><td>17–18</td><td>17 黃炫誠</td><td>18 高斯宇</td></tr>
+          <tr class="room-pair-b"><td>19–20</td><td>19 吳昇峰</td><td>20 許力中</td></tr>
+          <tr class="room-pair-a"><td>21–23</td><td>21 李翊瑄</td><td>23 郭 漾</td></tr>
+          <tr class="room-pair-b"><td>25–27</td><td>25 陳庭儀</td><td>27 林均薇</td></tr>
+          <tr class="room-pair-a"><td>29–31</td><td>29 官業博</td><td>31 劉岳峯</td></tr>
+          <tr class="room-pair-b"><td>33–35</td><td>33 賴韋豪</td><td>35 葉 雲</td></tr>
+          <tr class="room-pair-a"><td>37–39</td><td>37 楊易穎</td><td>39 向信學</td></tr>
+          <tr class="room-pair-b"><td>41–43</td><td>41 倉地靖子</td><td>43 侯維亨</td></tr>
+          <tr class="room-pair-a"><td>44–45</td><td>44 胡雅若</td><td>45 侯星煥</td></tr>
+          <tr class="room-guide"><td>導遊</td><td colspan="2">柯邑翰</td></tr>
         </tbody>
       </table>
     </div>
@@ -1611,47 +1664,86 @@
     <div id="tab-C" class="room-panel" style="display:none;">
       <div class="room-note">C 車導遊：絲啟瑞（大阪進出）</div>
       <table class="room-table">
-        <thead><tr><th>編號</th><th>姓名</th><th>備註</th></tr></thead>
+        <thead><tr><th>房號</th><th>旅客 1</th><th>旅客 2</th></tr></thead>
         <tbody>
-          <tr><td>01</td><td>ROBERT PEH YUAN</td><td></td></tr>
-          <tr><td>02</td><td>SHEU PHILIP</td><td></td></tr>
-          <tr><td>03</td><td>張佩琪</td><td></td></tr>
-          <tr><td>04</td><td>曹峻銘</td><td></td></tr>
-          <tr><td>05</td><td>黃子鑌</td><td></td></tr>
-          <tr><td>06</td><td>黃袁宇</td><td></td></tr>
-          <tr><td>07</td><td>許茵茵</td><td></td></tr>
-          <tr><td>08</td><td>鄭思瑀</td><td></td></tr>
-          <tr><td>09</td><td>陳映璇</td><td></td></tr>
-          <tr><td>10</td><td>曾凡瑄</td><td></td></tr>
-          <tr><td>11</td><td>羅繼理</td><td></td></tr>
-          <tr><td>12</td><td>林中杰</td><td></td></tr>
-          <tr><td>13</td><td>陳柏源</td><td></td></tr>
-          <tr><td>14</td><td>蘇柏銘</td><td></td></tr>
-          <tr><td>15</td><td>馮俊彥</td><td></td></tr>
-          <tr><td>16</td><td>蔣仲甫</td><td></td></tr>
-          <tr><td>17</td><td>李翊賓</td><td></td></tr>
-          <tr><td>18</td><td>張學平</td><td></td></tr>
-          <tr><td>19</td><td>楊博儒</td><td></td></tr>
-          <tr><td>20</td><td>蔡孟倫</td><td></td></tr>
-          <tr><td>21</td><td>蔡松栩</td><td></td></tr>
-          <tr><td>22</td><td>魏 瑋</td><td></td></tr>
-          <tr><td>23</td><td>黃允愷</td><td></td></tr>
-          <tr><td>24</td><td>黃致遠</td><td></td></tr>
-          <tr><td>25</td><td>陳士揚</td><td></td></tr>
-          <tr><td>26</td><td>陳定暐</td><td></td></tr>
-          <tr><td>27</td><td>蔡文彬</td><td></td></tr>
-          <tr><td>28</td><td>連惠華</td><td></td></tr>
-          <tr><td>29</td><td>曾婉瑜</td><td></td></tr>
-          <tr><td>30</td><td>廖聿婕</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>31</td><td>蕭 喬</td><td></td></tr>
-          <tr><td>32</td><td>倉地靖子</td><td class="room-cross">※ B 車</td></tr>
-          <tr><td>33</td><td>謝明軒</td><td></td></tr>
-          <tr><td>34</td><td>洪嘉豪</td><td class="room-cross">※ A 車</td></tr>
-          <tr><td>35</td><td>蔡維宸</td><td></td></tr>
-          <tr><td>36</td><td>賴韋豪</td><td class="room-cross">※ B 車</td></tr>
-          <tr class="room-guide"><td>37</td><td>絲啟瑞</td><td>導遊</td></tr>
+          <tr class="room-pair-a"><td>01–02</td><td>01 ROBERT PEH YUAN</td><td>02 SHEU PHILIP</td></tr>
+          <tr class="room-pair-b"><td>03–04</td><td>03 張佩琪</td><td>04 曹峻銘</td></tr>
+          <tr class="room-pair-a"><td>05–06</td><td>05 黃子鑌</td><td>06 黃袁宇</td></tr>
+          <tr class="room-pair-b"><td>07–08</td><td>07 許茵茵</td><td>08 鄭思瑀</td></tr>
+          <tr class="room-pair-a"><td>09–10</td><td>09 陳映璇</td><td>10 曾凡瑄</td></tr>
+          <tr class="room-pair-b"><td>11–12</td><td>11 羅繼理</td><td>12 林中杰</td></tr>
+          <tr class="room-pair-a"><td>13–14</td><td>13 陳柏源</td><td>14 蘇柏銘</td></tr>
+          <tr class="room-pair-b"><td>15–16</td><td>15 馮俊彥</td><td>16 蔣仲甫</td></tr>
+          <tr class="room-pair-a"><td>17–18</td><td>17 李翊賓</td><td>18 張學平</td></tr>
+          <tr class="room-pair-b"><td>19–20</td><td>19 楊博儒</td><td>20 蔡孟倫</td></tr>
+          <tr class="room-pair-a"><td>21–22</td><td>21 蔡松栩</td><td>22 魏 瑋</td></tr>
+          <tr class="room-pair-b"><td>23–24</td><td>23 黃允愷</td><td>24 黃致遠</td></tr>
+          <tr class="room-pair-a"><td>25–26</td><td>25 陳士揚</td><td>26 陳定暐</td></tr>
+          <tr class="room-pair-b"><td>27–28</td><td>27 蔡文彬</td><td>28 連惠華</td></tr>
+          <tr class="room-pair-a"><td>29–31</td><td>29 曾婉瑜</td><td>31 蕭 喬</td></tr>
+          <tr class="room-pair-b"><td>33–35</td><td>33 謝明軒</td><td>35 蔡維宸</td></tr>
+          <tr class="room-guide"><td>導遊</td><td colspan="2">絲啟瑞</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- 餐桌分配 -->
+    <hr class="divider">
+    <div class="section-header" style="margin-bottom:1.5rem;">
+      <div class="section-kanji" style="font-size:2.5rem;">餐</div>
+      <div class="section-title-wrap">
+        <span class="section-label">Dining Table</span>
+        <div class="section-title" style="font-size:1.2rem;">Welcome Party 餐桌分配</div>
+      </div>
+    </div>
+    <div class="dining-grid">
+      <div class="dining-table-card">
+        <div class="dining-table-label">A 桌</div>
+        <div class="dining-members">Rina・Joey・Darren・Jamie・Jerry・Vinny・Sunny・Vans・Karen<br><small>黃益國・廖芸巧・回信圈・廖芸巧・失弘正・廖信義・廖如如・廖景遠・曾凡瑄</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">B 桌</div>
+        <div class="dining-members">Phil・Vera・Paul・Paul・Yoku・Elyse・Steven・Tappy・Allen・Rita<br><small>鄭慈球・壘壘圈・李珊珊・廖益猛・許明哲・廖立成・許門祥・廖品方・廖中杰</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">C 桌</div>
+        <div class="dining-members">Robert・Peter・Neil・Will・Ralph・Loko・Luke・Tobey・Alain<br><small>張憲平・賽壘壘・宮維麟・蔡文杉・徐克杉・廖廖廖・廖立成・廖品方・傅品方・林中杰</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">D 桌</div>
+        <div class="dining-members">Minna・Uni・Gino・Tom・Aaron・Antonio・Amber・Ying・Yann<br><small>蔡松栩・廖廖廖・黃益國・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">E 桌</div>
+        <div class="dining-members">Leon・Mervin・Sam・Ryan・Charci・Billy・Oskar・Yasuko<br><small>蔡松栩・蔡孟倫・馮俊彥・廖廖廖・張巧蒂・廖廖廖・廖廖廖・倉地靖子</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">F 桌</div>
+        <div class="dining-members">Lily・Calos・Edward・Zachary・Phoebe・Phoebe・Ethan・Cartor・Joanna・Claudia<br><small>李嬑安・陳勤文・夫夫廖廖・夫夫廖廖・廖廖廖・廖廖廖・日日廖廖・陳柏源・廖廖廖・廖廖廖</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">G 桌</div>
+        <div class="dining-members">Leon・Ian・Rainbow・Alan・Parker・Mandy・Max・Frankovic・Crystal<br><small>計力中・鐵賽廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・林承慧</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">H 桌</div>
+        <div class="dining-members">Gina・Tommy・Jonas・Eric・Peter・Chandler・Wayne・Steffi・Miles<br><small>黃松栩・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・杜子昀・廖廖廖・沈家豪・龔哲四</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">I 桌</div>
+        <div class="dining-members">Michelle・Errol・Colin・Euli・Steve・Hao・York・Jason・Larry<br><small>劉岳峯・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・林宗諺</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">J 桌</div>
+        <div class="dining-members">Gavin・Ting・Vivian・Momo・Lauren・Kelly・Fish・Francisco・Francisco<br><small>劉岳峯・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖</small></div>
+      </div>
+      <div class="dining-table-card">
+        <div class="dining-table-label">K 桌</div>
+        <div class="dining-members">（K 桌成員請參閱紙本手冊）</div>
+      </div>
+    </div>
+    <div class="matcha-box" style="margin-top:1rem;">
+      ✦ 餐桌分配以 Welcome Party 為準，詳細英文名對照請參閱紙本手冊第 23 頁。
     </div>
 
   </div>
