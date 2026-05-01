@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>漫遊關西 ～ 古都秘境散策四日</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,15 +25,13 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   /* 全站最小字體 18pt */
-  :root { --min-font: 18pt; }
-
   body {
     font-family: 'Noto Sans TC', sans-serif;
     background: var(--washi);
     color: var(--ink);
     font-weight: 300;
     line-height: 1.9;
-    font-size: 18pt;
+    font-size: 20pt;
   }
 
   /* 強制任何元素字體不低於 18pt */
@@ -807,9 +805,10 @@
   .legend-pair { color: var(--nori); font-weight: 500; }
   .legend-single { color: var(--gold); font-weight: 500; }
 
+  tr.room-triple td { background: rgba(192,57,43,0.08) !important; color: var(--vermillion); }
   tr.room-pair-a td { background: rgba(107,124,69,0.08); }
   tr.room-pair-b td { background: rgba(196,147,63,0.08); }
-  tr.room-single td { background: rgba(192,57,43,0.06); color: var(--vermillion); }
+  tr.room-single td { background: rgba(196,147,63,0.15); }
 
   /* 餐桌分配 */
   .dining-grid {
@@ -946,6 +945,14 @@
   }
 
   @media (max-width: 768px) {
+    body {
+      font-size: 22pt;
+    }
+
+    /* 強制手機最小字體 20pt */
+    body * {
+      font-size: max(inherit, 20pt);
+    }
     /* 導覽列 */
     nav { justify-content: flex-start; }
     nav a { padding: 0.75rem 0.9rem; letter-spacing: 0.05em; }
@@ -1594,9 +1601,176 @@
     </div>
 
     <div class="room-legend">
-      <span class="legend-pair">■ 雙人房（同色為同房）</span>
-      <span class="legend-single">□ 單人房</span>
+      <span style="display:inline-flex;align-items:center;gap:0.4rem;"><span style="width:14px;height:14px;background:rgba(107,124,69,0.2);display:inline-block;border:1px solid var(--matcha);"></span> 雙人房</span>
+      <span style="display:inline-flex;align-items:center;gap:0.4rem;"><span style="width:14px;height:14px;background:rgba(196,147,63,0.15);display:inline-block;border:1px solid var(--gold);"></span> 單人房</span>
+      <span style="display:inline-flex;align-items:center;gap:0.4rem;"><span style="width:14px;height:14px;background:rgba(192,57,43,0.12);display:inline-block;border:1px solid var(--vermillion);"></span> 三人房</span>
     </div>
+
+    <!-- TAB SWITCHER -->
+    <div class="room-tabs">
+      <button class="room-tab active" onclick="switchTab('A')">A 車</button>
+      <button class="room-tab" onclick="switchTab('B')">B 車</button>
+      <button class="room-tab" onclick="switchTab('C')">C 車</button>
+    </div>
+
+    <!-- A 車 -->
+    <div id="tab-A" class="room-panel">
+      <div class="room-note">A 車導遊：蕭明智（神戶進出）</div>
+      <table class="room-table">
+        <thead><tr><th>編號</th><th>姓名</th><th>房型</th></tr></thead>
+        <tbody>
+          <tr class="room-single"><td>01</td><td>鍾育諺</td><td>單人房</td></tr>
+          <tr class="room-single"><td>02</td><td>趙志乾</td><td>單人房</td></tr>
+          <tr class="room-pair-a"><td>03</td><td>李嬑安</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>04</td><td>劉馨文</td></tr>
+          <tr class="room-pair-b"><td>05</td><td>李 怜</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>06</td><td>劉瑤雯</td></tr>
+          <tr class="room-pair-a"><td>07</td><td>陳俐蓁</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>08</td><td>董豐稷</td></tr>
+          <tr class="room-pair-b"><td>09</td><td>邱琪峰</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>10</td><td>陳示珮</td></tr>
+          <tr class="room-pair-a"><td>11</td><td>徐嘉駿</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>12</td><td>楊智宇</td></tr>
+          <tr class="room-pair-b"><td>13</td><td>朱弘正</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>14</td><td>宋慶譁</td></tr>
+          <tr class="room-pair-a"><td>15</td><td>甘能譯</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>16</td><td>林宗諺</td></tr>
+          <tr class="room-pair-b"><td>17</td><td>蔡奇紘</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>18</td><td>蔡欣哲</td></tr>
+          <tr class="room-pair-a"><td>19</td><td>龔哲緯</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>20</td><td>黃益國</td></tr>
+          <tr class="room-pair-b"><td>21</td><td>沈家豪</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>22</td><td>官業博 <small>(B車)</small></td></tr>
+          <tr class="room-pair-a"><td>17</td><td>洪嘉豪</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>18</td><td>謝明軒 <small>(C車)</small></td></tr>
+          <tr class="room-pair-b"><td>19</td><td>翁子傑</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>20</td><td>劉岳峯 <small>(B車)</small></td></tr>
+          <tr class="room-pair-a"><td>21</td><td>張巧蒂</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>22</td><td>林均薇 <small>(B車)</small></td></tr>
+          <tr class="room-pair-b"><td>23</td><td>許少易</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>24</td><td>陳庭儀 <small>(B車)</small></td></tr>
+          <tr class="room-pair-a"><td>25</td><td>陳勤文</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>26</td><td>向信學 <small>(B車)</small></td></tr>
+          <tr class="room-pair-b"><td>27</td><td>麥德西</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>28</td><td>郭 漾 <small>(B車)</small></td></tr>
+          <tr class="room-pair-a"><td>29</td><td>廖聿婕</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>30</td><td>曾婉瑜 <small>(C車)</small></td></tr>
+          <tr class="room-pair-b"><td>31</td><td>廖芸巧</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>32</td><td>李翊瑄 <small>(B車)</small></td></tr>
+          <tr class="room-pair-a"><td>33</td><td>趙 虹</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>34</td><td>楊易穎 <small>(B車)</small></td></tr>
+          <tr class="room-pair-b"><td>35</td><td>林承慧</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>36</td><td>葉 雲 <small>(B車)</small></td></tr>
+          <tr class="room-guide"><td>37</td><td>蕭明智（導遊）</td><td>單人房</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- B 車 -->
+    <div id="tab-B" class="room-panel" style="display:none;">
+      <div class="room-note">B 車導遊：柯邑翰（大阪進出）</div>
+      <table class="room-table">
+        <thead><tr><th>編號</th><th>姓名</th><th>房型</th></tr></thead>
+        <tbody>
+          <tr class="room-single"><td>01</td><td>莊子昀</td><td>單人房</td></tr>
+          <tr class="room-single"><td>02</td><td>陳韻如</td><td>單人房</td></tr>
+          <tr class="room-single"><td>03</td><td>傅品方</td><td>單人房</td></tr>
+          <tr class="room-single"><td>04</td><td>劉培萱</td><td>單人房</td></tr>
+          <tr class="room-single"><td>05</td><td>許明哲</td><td>單人房</td></tr>
+          <tr class="room-single"><td>06</td><td>朱宥任</td><td>單人房</td></tr>
+          <tr class="room-pair-a"><td>07</td><td>黃品菁</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>08</td><td>魏孟涵</td></tr>
+          <tr class="room-pair-b"><td>09</td><td>蔡晴如</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>10</td><td>陳立欣</td></tr>
+          <tr class="room-pair-a"><td>11</td><td>曾建評</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>12</td><td>曾楷崴</td></tr>
+          <tr class="room-pair-b"><td>13</td><td>林祺堂</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>14</td><td>張憲康</td></tr>
+          <tr class="room-pair-a"><td>15</td><td>謝立成</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>16</td><td>邱毅柏</td></tr>
+          <tr class="room-pair-b"><td>17</td><td>黃炫誠</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>18</td><td>高斯宇</td></tr>
+          <tr class="room-pair-a"><td>19</td><td>吳昇峰</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>20</td><td>許力中</td></tr>
+          <tr class="room-pair-b"><td>21</td><td>李翊瑄</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>22</td><td>廖芸巧 <small>(A車)</small></td></tr>
+          <tr class="room-pair-a"><td>23</td><td>郭 漾</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>24</td><td>麥德西 <small>(A車)</small></td></tr>
+          <tr class="room-pair-b"><td>25</td><td>陳庭儀</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>26</td><td>許少易 <small>(A車)</small></td></tr>
+          <tr class="room-pair-a"><td>27</td><td>林均薇</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>28</td><td>張巧蒂 <small>(A車)</small></td></tr>
+          <tr class="room-pair-b"><td>29</td><td>官業博</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>30</td><td>沈家豪 <small>(A車)</small></td></tr>
+          <tr class="room-pair-a"><td>31</td><td>劉岳峯</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>32</td><td>翁子傑 <small>(A車)</small></td></tr>
+          <tr class="room-pair-b"><td>33</td><td>賴韋豪</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>34</td><td>蔡維宸 <small>(C車)</small></td></tr>
+          <tr class="room-pair-a"><td>35</td><td>葉 雲</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>36</td><td>林承慧 <small>(A車)</small></td></tr>
+          <tr class="room-pair-b"><td>37</td><td>楊易穎</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>38</td><td>趙 虹 <small>(A車)</small></td></tr>
+          <tr class="room-pair-a"><td>39</td><td>向信學</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>40</td><td>陳勤文 <small>(A車)</small></td></tr>
+          <tr class="room-pair-b"><td>41</td><td>倉地靖子</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>42</td><td>蕭 喬 <small>(C車)</small></td></tr>
+          <tr class="room-triple"><td>43</td><td>侯維亨</td><td rowspan="3">三人房</td></tr>
+          <tr class="room-triple"><td>44</td><td>胡雅若</td></tr>
+          <tr class="room-triple"><td>45</td><td>侯星煥</td></tr>
+          <tr class="room-guide"><td>46</td><td>柯邑翰（導遊）</td><td>單人房</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- C 車 -->
+    <div id="tab-C" class="room-panel" style="display:none;">
+      <div class="room-note">C 車導遊：絲啟瑞（大阪進出）</div>
+      <table class="room-table">
+        <thead><tr><th>編號</th><th>姓名</th><th>房型</th></tr></thead>
+        <tbody>
+          <tr class="room-single"><td>01</td><td>ROBERT PEH YUAN</td><td>單人房</td></tr>
+          <tr class="room-single"><td>02</td><td>SHEU PHILIP</td><td>單人房</td></tr>
+          <tr class="room-single"><td>03</td><td>張佩琪</td><td>單人房</td></tr>
+          <tr class="room-single"><td>04</td><td>曹峻銘</td><td>單人房</td></tr>
+          <tr class="room-single"><td>05</td><td>黃子鑌</td><td>單人房</td></tr>
+          <tr class="room-single"><td>06</td><td>黃袁宇</td><td>單人房</td></tr>
+          <tr class="room-pair-a"><td>07</td><td>許茵茵</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>08</td><td>鄭思瑀</td></tr>
+          <tr class="room-pair-b"><td>09</td><td>陳映璇</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>10</td><td>曾凡瑄</td></tr>
+          <tr class="room-pair-a"><td>11</td><td>羅繼理</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>12</td><td>林中杰</td></tr>
+          <tr class="room-pair-b"><td>13</td><td>陳柏源</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>14</td><td>蘇柏銘</td></tr>
+          <tr class="room-pair-a"><td>15</td><td>馮俊彥</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>16</td><td>蔣仲甫</td></tr>
+          <tr class="room-pair-b"><td>17</td><td>李翊賓</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>18</td><td>張學平</td></tr>
+          <tr class="room-pair-a"><td>19</td><td>楊博儒</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>20</td><td>蔡孟倫</td></tr>
+          <tr class="room-pair-b"><td>21</td><td>蔡松栩</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>22</td><td>魏 瑋</td></tr>
+          <tr class="room-pair-a"><td>23</td><td>黃允愷</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>24</td><td>黃致遠</td></tr>
+          <tr class="room-pair-b"><td>25</td><td>陳士揚</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>26</td><td>陳定暐</td></tr>
+          <tr class="room-pair-a"><td>27</td><td>蔡文彬</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>28</td><td>連惠華</td></tr>
+          <tr class="room-pair-b"><td>29</td><td>曾婉瑜</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>30</td><td>廖聿婕 <small>(A車)</small></td></tr>
+          <tr class="room-pair-a"><td>31</td><td>蕭 喬</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>32</td><td>倉地靖子 <small>(B車)</small></td></tr>
+          <tr class="room-pair-b"><td>33</td><td>謝明軒</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-b"><td>34</td><td>洪嘉豪 <small>(A車)</small></td></tr>
+          <tr class="room-pair-a"><td>35</td><td>蔡維宸</td><td rowspan="2">雙人房</td></tr>
+          <tr class="room-pair-a"><td>36</td><td>賴韋豪 <small>(B車)</small></td></tr>
+          <tr class="room-guide"><td>37</td><td>絲啟瑞（導遊）</td><td>單人房</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
 
     <!-- TAB SWITCHER -->
     <div class="room-tabs">
