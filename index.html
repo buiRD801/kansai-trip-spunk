@@ -796,55 +796,126 @@
   .room-legend {
     display: flex;
     gap: 1.5rem;
-    font-size: 0.8rem;
-    color: var(--sumi);
-    margin-bottom: 1.2rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
   }
 
-  .legend-pair { color: var(--nori); font-weight: 500; }
-  .legend-single { color: var(--gold); font-weight: 500; }
+  .room-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-  tr.room-triple td { background: rgba(192,57,43,0.08) !important; color: var(--vermillion); }
-  tr.room-pair-a td { background: rgba(107,124,69,0.08); }
-  tr.room-pair-b td { background: rgba(196,147,63,0.08); }
-  tr.room-single td { background: rgba(196,147,63,0.15); }
+  .room-legend i {
+    width: 16px; height: 16px;
+    border-radius: 3px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
 
-  /* 餐桌分配 */
+  /* 房間卡片 */
+  .room-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .room-card {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(107,124,69,0.2);
+  }
+
+  .room-card-header {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    font-family: 'Noto Serif TC', serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .room-card.double .room-card-header { background: var(--nori); color: var(--cream); }
+  .room-card.single .room-card-header { background: var(--gold); color: var(--ink); }
+  .room-card.triple .room-card-header { background: var(--vermillion); color: white; }
+  .room-card.guide-room .room-card-header { background: var(--sumi); color: var(--gold); }
+
+  .room-card-body {
+    background: white;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .room-card-person {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(107,124,69,0.08);
+    font-size: 0.85rem;
+    color: var(--sumi);
+  }
+
+  .room-card-person:last-child { border-bottom: none; }
+
+  .room-card-num {
+    font-size: 0.72rem;
+    color: rgba(45,36,22,0.4);
+    min-width: 24px;
+  }
+
+  .room-card-cross {
+    font-size: 0.68rem;
+    color: var(--matcha);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* 餐桌分配卡片 */
   .dining-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
   }
 
-  .dining-table-card {
+  .dining-card {
     background: white;
     border: 1px solid rgba(107,124,69,0.15);
-    border-top: 3px solid var(--matcha);
-    padding: 1rem 1.2rem;
+    border-radius: 4px;
+    overflow: hidden;
   }
 
-  .dining-table-label {
+  .dining-card-header {
+    background: var(--nori);
+    color: var(--gold);
+    padding: 0.4rem 0.8rem;
     font-family: 'Shippori Mincho', serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    color: var(--nori);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.15em;
   }
 
-  .dining-members {
+  .dining-card-body { padding: 0.5rem 0.8rem; }
+
+  .dining-card-person {
     font-size: 0.8rem;
     color: var(--sumi);
-    line-height: 1.8;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(107,124,69,0.08);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 
-  .dining-members small {
-    color: rgba(45,36,22,0.5);
+  .dining-card-person:last-child { border-bottom: none; }
+
+  .dining-card-en {
+    color: var(--matcha);
     font-size: 0.72rem;
-    display: block;
-    margin-top: 0.3rem;
+    min-width: 55px;
   }
 
   /* ── ROOMS ── */
@@ -1601,12 +1672,12 @@
     </div>
 
     <div class="room-legend">
-      <span style="display:inline-flex;align-items:center;gap:0.4rem;"><span style="width:14px;height:14px;background:rgba(107,124,69,0.2);display:inline-block;border:1px solid var(--matcha);"></span> 雙人房</span>
-      <span style="display:inline-flex;align-items:center;gap:0.4rem;"><span style="width:14px;height:14px;background:rgba(196,147,63,0.15);display:inline-block;border:1px solid var(--gold);"></span> 單人房</span>
-      <span style="display:inline-flex;align-items:center;gap:0.4rem;"><span style="width:14px;height:14px;background:rgba(192,57,43,0.12);display:inline-block;border:1px solid var(--vermillion);"></span> 三人房</span>
+      <span><i style="background:var(--nori);"></i>雙人房</span>
+      <span><i style="background:var(--gold);"></i>單人房</span>
+      <span><i style="background:var(--vermillion);"></i>三人房</span>
+      <span><i style="background:var(--sumi);"></i>導遊</span>
     </div>
 
-    <!-- TAB SWITCHER -->
     <div class="room-tabs">
       <button class="room-tab active" onclick="switchTab('A')">A 車</button>
       <button class="room-tab" onclick="switchTab('B')">B 車</button>
@@ -1616,249 +1687,93 @@
     <!-- A 車 -->
     <div id="tab-A" class="room-panel">
       <div class="room-note">A 車導遊：蕭明智（神戶進出）</div>
-      <table class="room-table">
-        <thead><tr><th>編號</th><th>姓名</th><th>房型</th></tr></thead>
-        <tbody>
-          <tr class="room-single"><td>01</td><td>鍾育諺</td><td>單人房</td></tr>
-          <tr class="room-single"><td>02</td><td>趙志乾</td><td>單人房</td></tr>
-          <tr class="room-pair-a"><td>03</td><td>李嬑安</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>04</td><td>劉馨文</td></tr>
-          <tr class="room-pair-b"><td>05</td><td>李 怜</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>06</td><td>劉瑤雯</td></tr>
-          <tr class="room-pair-a"><td>07</td><td>陳俐蓁</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>08</td><td>董豐稷</td></tr>
-          <tr class="room-pair-b"><td>09</td><td>邱琪峰</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>10</td><td>陳示珮</td></tr>
-          <tr class="room-pair-a"><td>11</td><td>徐嘉駿</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>12</td><td>楊智宇</td></tr>
-          <tr class="room-pair-b"><td>13</td><td>朱弘正</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>14</td><td>宋慶譁</td></tr>
-          <tr class="room-pair-a"><td>15</td><td>甘能譯</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>16</td><td>林宗諺</td></tr>
-          <tr class="room-pair-b"><td>17</td><td>蔡奇紘</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>18</td><td>蔡欣哲</td></tr>
-          <tr class="room-pair-a"><td>19</td><td>龔哲緯</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>20</td><td>黃益國</td></tr>
-          <tr class="room-pair-b"><td>21</td><td>沈家豪</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>22</td><td>官業博 <small>(B車)</small></td></tr>
-          <tr class="room-pair-a"><td>17</td><td>洪嘉豪</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>18</td><td>謝明軒 <small>(C車)</small></td></tr>
-          <tr class="room-pair-b"><td>19</td><td>翁子傑</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>20</td><td>劉岳峯 <small>(B車)</small></td></tr>
-          <tr class="room-pair-a"><td>21</td><td>張巧蒂</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>22</td><td>林均薇 <small>(B車)</small></td></tr>
-          <tr class="room-pair-b"><td>23</td><td>許少易</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>24</td><td>陳庭儀 <small>(B車)</small></td></tr>
-          <tr class="room-pair-a"><td>25</td><td>陳勤文</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>26</td><td>向信學 <small>(B車)</small></td></tr>
-          <tr class="room-pair-b"><td>27</td><td>麥德西</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>28</td><td>郭 漾 <small>(B車)</small></td></tr>
-          <tr class="room-pair-a"><td>29</td><td>廖聿婕</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>30</td><td>曾婉瑜 <small>(C車)</small></td></tr>
-          <tr class="room-pair-b"><td>31</td><td>廖芸巧</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>32</td><td>李翊瑄 <small>(B車)</small></td></tr>
-          <tr class="room-pair-a"><td>33</td><td>趙 虹</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>34</td><td>楊易穎 <small>(B車)</small></td></tr>
-          <tr class="room-pair-b"><td>35</td><td>林承慧</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>36</td><td>葉 雲 <small>(B車)</small></td></tr>
-          <tr class="room-guide"><td>37</td><td>蕭明智（導遊）</td><td>單人房</td></tr>
-        </tbody>
-      </table>
+      <div class="room-cards">
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">01</span>鍾育諺</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">02</span>趙志乾</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">03</span>李嬑安</div><div class="room-card-person"><span class="room-card-num">04</span>劉馨文</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">05</span>李 怜</div><div class="room-card-person"><span class="room-card-num">06</span>劉瑤雯</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">07</span>陳俐蓁</div><div class="room-card-person"><span class="room-card-num">08</span>董豐稷</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">09</span>邱琪峰</div><div class="room-card-person"><span class="room-card-num">10</span>陳示珮</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">11</span>徐嘉駿</div><div class="room-card-person"><span class="room-card-num">12</span>楊智宇</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">13</span>朱弘正</div><div class="room-card-person"><span class="room-card-num">14</span>宋慶譁</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">15</span>甘能譯</div><div class="room-card-person"><span class="room-card-num">16</span>林宗諺</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">17</span>蔡奇紘</div><div class="room-card-person"><span class="room-card-num">18</span>蔡欣哲</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">19</span>龔哲緯</div><div class="room-card-person"><span class="room-card-num">20</span>黃益國</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">21</span>沈家豪</div><div class="room-card-person"><span class="room-card-num">22</span>官業博<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">17</span>洪嘉豪</div><div class="room-card-person"><span class="room-card-num">18</span>謝明軒<span class="room-card-cross">C車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">19</span>翁子傑</div><div class="room-card-person"><span class="room-card-num">20</span>劉岳峯<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">21</span>張巧蒂</div><div class="room-card-person"><span class="room-card-num">22</span>林均薇<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">23</span>許少易</div><div class="room-card-person"><span class="room-card-num">24</span>陳庭儀<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">25</span>陳勤文</div><div class="room-card-person"><span class="room-card-num">26</span>向信學<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">27</span>麥德西</div><div class="room-card-person"><span class="room-card-num">28</span>郭 漾<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">29</span>廖聿婕</div><div class="room-card-person"><span class="room-card-num">30</span>曾婉瑜<span class="room-card-cross">C車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">31</span>廖芸巧</div><div class="room-card-person"><span class="room-card-num">32</span>李翊瑄<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">33</span>趙 虹</div><div class="room-card-person"><span class="room-card-num">34</span>楊易穎<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">35</span>林承慧</div><div class="room-card-person"><span class="room-card-num">36</span>葉 雲<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card guide-room"><div class="room-card-header">👤 導遊</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">37</span>蕭明智</div></div></div>
+      </div>
     </div>
 
     <!-- B 車 -->
     <div id="tab-B" class="room-panel" style="display:none;">
       <div class="room-note">B 車導遊：柯邑翰（大阪進出）</div>
-      <table class="room-table">
-        <thead><tr><th>編號</th><th>姓名</th><th>房型</th></tr></thead>
-        <tbody>
-          <tr class="room-single"><td>01</td><td>莊子昀</td><td>單人房</td></tr>
-          <tr class="room-single"><td>02</td><td>陳韻如</td><td>單人房</td></tr>
-          <tr class="room-single"><td>03</td><td>傅品方</td><td>單人房</td></tr>
-          <tr class="room-single"><td>04</td><td>劉培萱</td><td>單人房</td></tr>
-          <tr class="room-single"><td>05</td><td>許明哲</td><td>單人房</td></tr>
-          <tr class="room-single"><td>06</td><td>朱宥任</td><td>單人房</td></tr>
-          <tr class="room-pair-a"><td>07</td><td>黃品菁</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>08</td><td>魏孟涵</td></tr>
-          <tr class="room-pair-b"><td>09</td><td>蔡晴如</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>10</td><td>陳立欣</td></tr>
-          <tr class="room-pair-a"><td>11</td><td>曾建評</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>12</td><td>曾楷崴</td></tr>
-          <tr class="room-pair-b"><td>13</td><td>林祺堂</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>14</td><td>張憲康</td></tr>
-          <tr class="room-pair-a"><td>15</td><td>謝立成</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>16</td><td>邱毅柏</td></tr>
-          <tr class="room-pair-b"><td>17</td><td>黃炫誠</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>18</td><td>高斯宇</td></tr>
-          <tr class="room-pair-a"><td>19</td><td>吳昇峰</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>20</td><td>許力中</td></tr>
-          <tr class="room-pair-b"><td>21</td><td>李翊瑄</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>22</td><td>廖芸巧 <small>(A車)</small></td></tr>
-          <tr class="room-pair-a"><td>23</td><td>郭 漾</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>24</td><td>麥德西 <small>(A車)</small></td></tr>
-          <tr class="room-pair-b"><td>25</td><td>陳庭儀</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>26</td><td>許少易 <small>(A車)</small></td></tr>
-          <tr class="room-pair-a"><td>27</td><td>林均薇</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>28</td><td>張巧蒂 <small>(A車)</small></td></tr>
-          <tr class="room-pair-b"><td>29</td><td>官業博</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>30</td><td>沈家豪 <small>(A車)</small></td></tr>
-          <tr class="room-pair-a"><td>31</td><td>劉岳峯</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>32</td><td>翁子傑 <small>(A車)</small></td></tr>
-          <tr class="room-pair-b"><td>33</td><td>賴韋豪</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>34</td><td>蔡維宸 <small>(C車)</small></td></tr>
-          <tr class="room-pair-a"><td>35</td><td>葉 雲</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>36</td><td>林承慧 <small>(A車)</small></td></tr>
-          <tr class="room-pair-b"><td>37</td><td>楊易穎</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>38</td><td>趙 虹 <small>(A車)</small></td></tr>
-          <tr class="room-pair-a"><td>39</td><td>向信學</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>40</td><td>陳勤文 <small>(A車)</small></td></tr>
-          <tr class="room-pair-b"><td>41</td><td>倉地靖子</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>42</td><td>蕭 喬 <small>(C車)</small></td></tr>
-          <tr class="room-triple"><td>43</td><td>侯維亨</td><td rowspan="3">三人房</td></tr>
-          <tr class="room-triple"><td>44</td><td>胡雅若</td></tr>
-          <tr class="room-triple"><td>45</td><td>侯星煥</td></tr>
-          <tr class="room-guide"><td>46</td><td>柯邑翰（導遊）</td><td>單人房</td></tr>
-        </tbody>
-      </table>
+      <div class="room-cards">
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">01</span>莊子昀</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">02</span>陳韻如</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">03</span>傅品方</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">04</span>劉培萱</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">05</span>許明哲</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">06</span>朱宥任</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">07</span>黃品菁</div><div class="room-card-person"><span class="room-card-num">08</span>魏孟涵</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">09</span>蔡晴如</div><div class="room-card-person"><span class="room-card-num">10</span>陳立欣</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">11</span>曾建評</div><div class="room-card-person"><span class="room-card-num">12</span>曾楷崴</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">13</span>林祺堂</div><div class="room-card-person"><span class="room-card-num">14</span>張憲康</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">15</span>謝立成</div><div class="room-card-person"><span class="room-card-num">16</span>邱毅柏</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">17</span>黃炫誠</div><div class="room-card-person"><span class="room-card-num">18</span>高斯宇</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">19</span>吳昇峰</div><div class="room-card-person"><span class="room-card-num">20</span>許力中</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">21</span>李翊瑄</div><div class="room-card-person"><span class="room-card-num">22</span>廖芸巧<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">23</span>郭 漾</div><div class="room-card-person"><span class="room-card-num">24</span>麥德西<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">25</span>陳庭儀</div><div class="room-card-person"><span class="room-card-num">26</span>許少易<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">27</span>林均薇</div><div class="room-card-person"><span class="room-card-num">28</span>張巧蒂<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">29</span>官業博</div><div class="room-card-person"><span class="room-card-num">30</span>沈家豪<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">31</span>劉岳峯</div><div class="room-card-person"><span class="room-card-num">32</span>翁子傑<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">33</span>賴韋豪</div><div class="room-card-person"><span class="room-card-num">34</span>蔡維宸<span class="room-card-cross">C車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">35</span>葉 雲</div><div class="room-card-person"><span class="room-card-num">36</span>林承慧<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">37</span>楊易穎</div><div class="room-card-person"><span class="room-card-num">38</span>趙 虹<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">39</span>向信學</div><div class="room-card-person"><span class="room-card-num">40</span>陳勤文<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">41</span>倉地靖子</div><div class="room-card-person"><span class="room-card-num">42</span>蕭 喬<span class="room-card-cross">C車</span></div></div></div>
+        <div class="room-card triple"><div class="room-card-header">🛏🛏🛏 三人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">43</span>侯維亨</div><div class="room-card-person"><span class="room-card-num">44</span>胡雅若</div><div class="room-card-person"><span class="room-card-num">45</span>侯星煥</div></div></div>
+        <div class="room-card guide-room"><div class="room-card-header">👤 導遊</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">46</span>柯邑翰</div></div></div>
+      </div>
     </div>
 
     <!-- C 車 -->
     <div id="tab-C" class="room-panel" style="display:none;">
       <div class="room-note">C 車導遊：絲啟瑞（大阪進出）</div>
-      <table class="room-table">
-        <thead><tr><th>編號</th><th>姓名</th><th>房型</th></tr></thead>
-        <tbody>
-          <tr class="room-single"><td>01</td><td>ROBERT PEH YUAN</td><td>單人房</td></tr>
-          <tr class="room-single"><td>02</td><td>SHEU PHILIP</td><td>單人房</td></tr>
-          <tr class="room-single"><td>03</td><td>張佩琪</td><td>單人房</td></tr>
-          <tr class="room-single"><td>04</td><td>曹峻銘</td><td>單人房</td></tr>
-          <tr class="room-single"><td>05</td><td>黃子鑌</td><td>單人房</td></tr>
-          <tr class="room-single"><td>06</td><td>黃袁宇</td><td>單人房</td></tr>
-          <tr class="room-pair-a"><td>07</td><td>許茵茵</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>08</td><td>鄭思瑀</td></tr>
-          <tr class="room-pair-b"><td>09</td><td>陳映璇</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>10</td><td>曾凡瑄</td></tr>
-          <tr class="room-pair-a"><td>11</td><td>羅繼理</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>12</td><td>林中杰</td></tr>
-          <tr class="room-pair-b"><td>13</td><td>陳柏源</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>14</td><td>蘇柏銘</td></tr>
-          <tr class="room-pair-a"><td>15</td><td>馮俊彥</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>16</td><td>蔣仲甫</td></tr>
-          <tr class="room-pair-b"><td>17</td><td>李翊賓</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>18</td><td>張學平</td></tr>
-          <tr class="room-pair-a"><td>19</td><td>楊博儒</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>20</td><td>蔡孟倫</td></tr>
-          <tr class="room-pair-b"><td>21</td><td>蔡松栩</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>22</td><td>魏 瑋</td></tr>
-          <tr class="room-pair-a"><td>23</td><td>黃允愷</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>24</td><td>黃致遠</td></tr>
-          <tr class="room-pair-b"><td>25</td><td>陳士揚</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>26</td><td>陳定暐</td></tr>
-          <tr class="room-pair-a"><td>27</td><td>蔡文彬</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>28</td><td>連惠華</td></tr>
-          <tr class="room-pair-b"><td>29</td><td>曾婉瑜</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>30</td><td>廖聿婕 <small>(A車)</small></td></tr>
-          <tr class="room-pair-a"><td>31</td><td>蕭 喬</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>32</td><td>倉地靖子 <small>(B車)</small></td></tr>
-          <tr class="room-pair-b"><td>33</td><td>謝明軒</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-b"><td>34</td><td>洪嘉豪 <small>(A車)</small></td></tr>
-          <tr class="room-pair-a"><td>35</td><td>蔡維宸</td><td rowspan="2">雙人房</td></tr>
-          <tr class="room-pair-a"><td>36</td><td>賴韋豪 <small>(B車)</small></td></tr>
-          <tr class="room-guide"><td>37</td><td>絲啟瑞（導遊）</td><td>單人房</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-</section>
-
-    <!-- TAB SWITCHER -->
-    <div class="room-tabs">
-      <button class="room-tab active" onclick="switchTab('A')">A 車</button>
-      <button class="room-tab" onclick="switchTab('B')">B 車</button>
-      <button class="room-tab" onclick="switchTab('C')">C 車</button>
-    </div>
-
-    <!-- A 車 -->
-    <div id="tab-A" class="room-panel">
-      <div class="room-note">A 車導遊：蕭明智（神戶進出）</div>
-      <table class="room-table">
-        <thead><tr><th>房號</th><th>旅客 1</th><th>旅客 2</th></tr></thead>
-        <tbody>
-          <tr class="room-pair-a"><td>01–02</td><td>01 鍾育諺</td><td>02 趙志乾</td></tr>
-          <tr class="room-pair-b"><td>03–04</td><td>03 李嬑安</td><td>04 劉馨文</td></tr>
-          <tr class="room-pair-a"><td>05–06</td><td>05 李 怜</td><td>06 劉瑤雯</td></tr>
-          <tr class="room-pair-b"><td>07–08</td><td>07 陳俐蓁</td><td>08 董豐稷</td></tr>
-          <tr class="room-pair-a"><td>09–10</td><td>09 邱琪峰</td><td>10 陳示珮</td></tr>
-          <tr class="room-pair-b"><td>11–12</td><td>11 徐嘉駿</td><td>12 楊智宇</td></tr>
-          <tr class="room-pair-a"><td>13–14</td><td>13 朱弘正</td><td>14 宋慶譁</td></tr>
-          <tr class="room-pair-b"><td>15–16</td><td>15 甘能譯</td><td>16 林宗諺</td></tr>
-          <tr class="room-pair-a"><td>17–18</td><td>17 蔡奇紘</td><td>18 蔡欣哲</td></tr>
-          <tr class="room-pair-b"><td>19–20</td><td>19 龔哲緯</td><td>20 黃益國</td></tr>
-          <tr class="room-single"><td>21</td><td>21 沈家豪</td><td>—</td></tr>
-          <tr class="room-pair-a"><td>17–18</td><td>17 洪嘉豪</td><td>19 翁子傑</td></tr>
-          <tr class="room-pair-b"><td>21–23</td><td>21 張巧蒂</td><td>23 許少易</td></tr>
-          <tr class="room-pair-a"><td>25–27</td><td>25 陳勤文</td><td>27 麥德西</td></tr>
-          <tr class="room-pair-b"><td>29–31</td><td>29 廖聿婕</td><td>31 廖芸巧</td></tr>
-          <tr class="room-pair-a"><td>33–35</td><td>33 趙 虹</td><td>35 林承慧</td></tr>
-          <tr class="room-guide"><td>導遊</td><td colspan="2">蕭明智</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- B 車 -->
-    <div id="tab-B" class="room-panel" style="display:none;">
-      <div class="room-note">B 車導遊：柯邑翰（大阪進出）</div>
-      <table class="room-table">
-        <thead><tr><th>房號</th><th>旅客 1</th><th>旅客 2</th></tr></thead>
-        <tbody>
-          <tr class="room-pair-a"><td>01–02</td><td>01 莊子昀</td><td>02 陳韻如</td></tr>
-          <tr class="room-pair-b"><td>03–04</td><td>03 傅品方</td><td>04 劉培萱</td></tr>
-          <tr class="room-pair-a"><td>05–06</td><td>05 許明哲</td><td>06 朱宥任</td></tr>
-          <tr class="room-pair-b"><td>07–08</td><td>07 黃品菁</td><td>08 魏孟涵</td></tr>
-          <tr class="room-pair-a"><td>09–10</td><td>09 蔡晴如</td><td>10 陳立欣</td></tr>
-          <tr class="room-pair-b"><td>11–12</td><td>11 曾建評</td><td>12 曾楷崴</td></tr>
-          <tr class="room-pair-a"><td>13–14</td><td>13 林祺堂</td><td>14 張憲康</td></tr>
-          <tr class="room-pair-b"><td>15–16</td><td>15 謝立成</td><td>16 邱毅柏</td></tr>
-          <tr class="room-pair-a"><td>17–18</td><td>17 黃炫誠</td><td>18 高斯宇</td></tr>
-          <tr class="room-pair-b"><td>19–20</td><td>19 吳昇峰</td><td>20 許力中</td></tr>
-          <tr class="room-pair-a"><td>21–23</td><td>21 李翊瑄</td><td>23 郭 漾</td></tr>
-          <tr class="room-pair-b"><td>25–27</td><td>25 陳庭儀</td><td>27 林均薇</td></tr>
-          <tr class="room-pair-a"><td>29–31</td><td>29 官業博</td><td>31 劉岳峯</td></tr>
-          <tr class="room-pair-b"><td>33–35</td><td>33 賴韋豪</td><td>35 葉 雲</td></tr>
-          <tr class="room-pair-a"><td>37–39</td><td>37 楊易穎</td><td>39 向信學</td></tr>
-          <tr class="room-pair-b"><td>41–43</td><td>41 倉地靖子</td><td>43 侯維亨</td></tr>
-          <tr class="room-pair-a"><td>44–45</td><td>44 胡雅若</td><td>45 侯星煥</td></tr>
-          <tr class="room-guide"><td>導遊</td><td colspan="2">柯邑翰</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- C 車 -->
-    <div id="tab-C" class="room-panel" style="display:none;">
-      <div class="room-note">C 車導遊：絲啟瑞（大阪進出）</div>
-      <table class="room-table">
-        <thead><tr><th>房號</th><th>旅客 1</th><th>旅客 2</th></tr></thead>
-        <tbody>
-          <tr class="room-pair-a"><td>01–02</td><td>01 ROBERT PEH YUAN</td><td>02 SHEU PHILIP</td></tr>
-          <tr class="room-pair-b"><td>03–04</td><td>03 張佩琪</td><td>04 曹峻銘</td></tr>
-          <tr class="room-pair-a"><td>05–06</td><td>05 黃子鑌</td><td>06 黃袁宇</td></tr>
-          <tr class="room-pair-b"><td>07–08</td><td>07 許茵茵</td><td>08 鄭思瑀</td></tr>
-          <tr class="room-pair-a"><td>09–10</td><td>09 陳映璇</td><td>10 曾凡瑄</td></tr>
-          <tr class="room-pair-b"><td>11–12</td><td>11 羅繼理</td><td>12 林中杰</td></tr>
-          <tr class="room-pair-a"><td>13–14</td><td>13 陳柏源</td><td>14 蘇柏銘</td></tr>
-          <tr class="room-pair-b"><td>15–16</td><td>15 馮俊彥</td><td>16 蔣仲甫</td></tr>
-          <tr class="room-pair-a"><td>17–18</td><td>17 李翊賓</td><td>18 張學平</td></tr>
-          <tr class="room-pair-b"><td>19–20</td><td>19 楊博儒</td><td>20 蔡孟倫</td></tr>
-          <tr class="room-pair-a"><td>21–22</td><td>21 蔡松栩</td><td>22 魏 瑋</td></tr>
-          <tr class="room-pair-b"><td>23–24</td><td>23 黃允愷</td><td>24 黃致遠</td></tr>
-          <tr class="room-pair-a"><td>25–26</td><td>25 陳士揚</td><td>26 陳定暐</td></tr>
-          <tr class="room-pair-b"><td>27–28</td><td>27 蔡文彬</td><td>28 連惠華</td></tr>
-          <tr class="room-pair-a"><td>29–31</td><td>29 曾婉瑜</td><td>31 蕭 喬</td></tr>
-          <tr class="room-pair-b"><td>33–35</td><td>33 謝明軒</td><td>35 蔡維宸</td></tr>
-          <tr class="room-guide"><td>導遊</td><td colspan="2">絲啟瑞</td></tr>
-        </tbody>
-      </table>
+      <div class="room-cards">
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">01</span>ROBERT PEH YUAN</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">02</span>SHEU PHILIP</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">03</span>張佩琪</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">04</span>曹峻銘</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">05</span>黃子鑌</div></div></div>
+        <div class="room-card single"><div class="room-card-header">🛏 單人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">06</span>黃袁宇</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">07</span>許茵茵</div><div class="room-card-person"><span class="room-card-num">08</span>鄭思瑀</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">09</span>陳映璇</div><div class="room-card-person"><span class="room-card-num">10</span>曾凡瑄</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">11</span>羅繼理</div><div class="room-card-person"><span class="room-card-num">12</span>林中杰</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">13</span>陳柏源</div><div class="room-card-person"><span class="room-card-num">14</span>蘇柏銘</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">15</span>馮俊彥</div><div class="room-card-person"><span class="room-card-num">16</span>蔣仲甫</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">17</span>李翊賓</div><div class="room-card-person"><span class="room-card-num">18</span>張學平</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">19</span>楊博儒</div><div class="room-card-person"><span class="room-card-num">20</span>蔡孟倫</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">21</span>蔡松栩</div><div class="room-card-person"><span class="room-card-num">22</span>魏 瑋</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">23</span>黃允愷</div><div class="room-card-person"><span class="room-card-num">24</span>黃致遠</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">25</span>陳士揚</div><div class="room-card-person"><span class="room-card-num">26</span>陳定暐</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">27</span>蔡文彬</div><div class="room-card-person"><span class="room-card-num">28</span>連惠華</div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">29</span>曾婉瑜</div><div class="room-card-person"><span class="room-card-num">30</span>廖聿婕<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">31</span>蕭 喬</div><div class="room-card-person"><span class="room-card-num">32</span>倉地靖子<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">33</span>謝明軒</div><div class="room-card-person"><span class="room-card-num">34</span>洪嘉豪<span class="room-card-cross">A車</span></div></div></div>
+        <div class="room-card double"><div class="room-card-header">🛏🛏 雙人房</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">35</span>蔡維宸</div><div class="room-card-person"><span class="room-card-num">36</span>賴韋豪<span class="room-card-cross">B車</span></div></div></div>
+        <div class="room-card guide-room"><div class="room-card-header">👤 導遊</div><div class="room-card-body"><div class="room-card-person"><span class="room-card-num">37</span>絲啟瑞</div></div></div>
+      </div>
     </div>
 
     <!-- 餐桌分配 -->
@@ -1871,58 +1786,124 @@
       </div>
     </div>
     <div class="dining-grid">
-      <div class="dining-table-card">
-        <div class="dining-table-label">A 桌</div>
-        <div class="dining-members">Rina・Joey・Darren・Jamie・Jerry・Vinny・Sunny・Vans・Karen<br><small>黃益國・廖芸巧・回信圈・廖芸巧・失弘正・廖信義・廖如如・廖景遠・曾凡瑄</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">B 桌</div>
-        <div class="dining-members">Phil・Vera・Paul・Paul・Yoku・Elyse・Steven・Tappy・Allen・Rita<br><small>鄭慈球・壘壘圈・李珊珊・廖益猛・許明哲・廖立成・許門祥・廖品方・廖中杰</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">C 桌</div>
-        <div class="dining-members">Robert・Peter・Neil・Will・Ralph・Loko・Luke・Tobey・Alain<br><small>張憲平・賽壘壘・宮維麟・蔡文杉・徐克杉・廖廖廖・廖立成・廖品方・傅品方・林中杰</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">D 桌</div>
-        <div class="dining-members">Minna・Uni・Gino・Tom・Aaron・Antonio・Amber・Ying・Yann<br><small>蔡松栩・廖廖廖・黃益國・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">E 桌</div>
-        <div class="dining-members">Leon・Mervin・Sam・Ryan・Charci・Billy・Oskar・Yasuko<br><small>蔡松栩・蔡孟倫・馮俊彥・廖廖廖・張巧蒂・廖廖廖・廖廖廖・倉地靖子</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">F 桌</div>
-        <div class="dining-members">Lily・Calos・Edward・Zachary・Phoebe・Phoebe・Ethan・Cartor・Joanna・Claudia<br><small>李嬑安・陳勤文・夫夫廖廖・夫夫廖廖・廖廖廖・廖廖廖・日日廖廖・陳柏源・廖廖廖・廖廖廖</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">G 桌</div>
-        <div class="dining-members">Leon・Ian・Rainbow・Alan・Parker・Mandy・Max・Frankovic・Crystal<br><small>計力中・鐵賽廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・林承慧</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">H 桌</div>
-        <div class="dining-members">Gina・Tommy・Jonas・Eric・Peter・Chandler・Wayne・Steffi・Miles<br><small>黃松栩・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・杜子昀・廖廖廖・沈家豪・龔哲四</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">I 桌</div>
-        <div class="dining-members">Michelle・Errol・Colin・Euli・Steve・Hao・York・Jason・Larry<br><small>劉岳峯・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・林宗諺</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">J 桌</div>
-        <div class="dining-members">Gavin・Ting・Vivian・Momo・Lauren・Kelly・Fish・Francisco・Francisco<br><small>劉岳峯・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖・廖廖廖</small></div>
-      </div>
-      <div class="dining-table-card">
-        <div class="dining-table-label">K 桌</div>
-        <div class="dining-members">（K 桌成員請參閱紙本手冊）</div>
-      </div>
+      <div class="dining-card"><div class="dining-card-header">A 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Rina</span>黃益國</div>
+        <div class="dining-card-person"><span class="dining-card-en">Joey</span>廖芸巧</div>
+        <div class="dining-card-person"><span class="dining-card-en">Darren</span>回信圈</div>
+        <div class="dining-card-person"><span class="dining-card-en">Jamie</span>朱弘正</div>
+        <div class="dining-card-person"><span class="dining-card-en">Jerry</span>廖信義</div>
+        <div class="dining-card-person"><span class="dining-card-en">Vinny</span>廖如如</div>
+        <div class="dining-card-person"><span class="dining-card-en">Sunny</span>廖景遠</div>
+        <div class="dining-card-person"><span class="dining-card-en">Vans</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Karen</span>曾凡瑄</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">B 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Phil</span>鄭慈球</div>
+        <div class="dining-card-person"><span class="dining-card-en">Vera</span>壘壘圈</div>
+        <div class="dining-card-person"><span class="dining-card-en">Paul</span>李珊珊</div>
+        <div class="dining-card-person"><span class="dining-card-en">Yoku</span>許明哲</div>
+        <div class="dining-card-person"><span class="dining-card-en">Elyse</span>廖立成</div>
+        <div class="dining-card-person"><span class="dining-card-en">Steven</span>許門祥</div>
+        <div class="dining-card-person"><span class="dining-card-en">Tappy</span>廖品方</div>
+        <div class="dining-card-person"><span class="dining-card-en">Allen</span>廖中杰</div>
+        <div class="dining-card-person"><span class="dining-card-en">Rita</span>廖廖廖</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">C 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Robert</span>張憲平</div>
+        <div class="dining-card-person"><span class="dining-card-en">Peter</span>賽壘壘</div>
+        <div class="dining-card-person"><span class="dining-card-en">Neil</span>宮維麟</div>
+        <div class="dining-card-person"><span class="dining-card-en">Will</span>蔡文杉</div>
+        <div class="dining-card-person"><span class="dining-card-en">Ralph</span>徐克杉</div>
+        <div class="dining-card-person"><span class="dining-card-en">Loko</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Luke</span>傅品方</div>
+        <div class="dining-card-person"><span class="dining-card-en">Tobey</span>林中杰</div>
+        <div class="dining-card-person"><span class="dining-card-en">Alain</span>廖廖廖</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">D 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Minna</span>蔡松栩</div>
+        <div class="dining-card-person"><span class="dining-card-en">Uni</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Gino</span>黃益國</div>
+        <div class="dining-card-person"><span class="dining-card-en">Tom</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Aaron</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Antonio</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Amber</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Ying</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Yann</span>廖廖廖</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">E 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Leon</span>蔡松栩</div>
+        <div class="dining-card-person"><span class="dining-card-en">Mervin</span>蔡孟倫</div>
+        <div class="dining-card-person"><span class="dining-card-en">Sam</span>馮俊彥</div>
+        <div class="dining-card-person"><span class="dining-card-en">Ryan</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Charci</span>張巧蒂</div>
+        <div class="dining-card-person"><span class="dining-card-en">Billy</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Oskar</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Yasuko</span>倉地靖子</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">F 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Lily</span>李嬑安</div>
+        <div class="dining-card-person"><span class="dining-card-en">Calos</span>陳勤文</div>
+        <div class="dining-card-person"><span class="dining-card-en">Edward</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Zachary</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Phoebe</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Ethan</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Cartor</span>陳柏源</div>
+        <div class="dining-card-person"><span class="dining-card-en">Joanna</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Claudia</span>廖廖廖</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">G 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Leon</span>計力中</div>
+        <div class="dining-card-person"><span class="dining-card-en">Ian</span>鐵賽廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Rainbow</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Alan</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Parker</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Mandy</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Max</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Frankovic</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Crystal</span>林承慧</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">H 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Gina</span>黃松栩</div>
+        <div class="dining-card-person"><span class="dining-card-en">Tommy</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Jonas</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Eric</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Peter</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Chandler</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Wayne</span>莊子昀</div>
+        <div class="dining-card-person"><span class="dining-card-en">Steffi</span>沈家豪</div>
+        <div class="dining-card-person"><span class="dining-card-en">Miles</span>龔哲緯</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">I 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Michelle</span>劉岳峯</div>
+        <div class="dining-card-person"><span class="dining-card-en">Errol</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Colin</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Euli</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Steve</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Hao</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">York</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Jason</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Larry</span>林宗諺</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">J 桌</div><div class="dining-card-body">
+        <div class="dining-card-person"><span class="dining-card-en">Gavin</span>劉岳峯</div>
+        <div class="dining-card-person"><span class="dining-card-en">Ting</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Vivian</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Momo</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Lauren</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Kelly</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Fish</span>廖廖廖</div>
+        <div class="dining-card-person"><span class="dining-card-en">Francisco</span>廖廖廖</div>
+      </div></div>
+      <div class="dining-card"><div class="dining-card-header">K 桌</div><div class="dining-card-body">
+        <div class="dining-card-person" style="color:var(--matcha);font-size:0.8rem;">詳見紙本手冊第 23 頁</div>
+      </div></div>
     </div>
     <div class="matcha-box" style="margin-top:1rem;">
-      ✦ 餐桌分配以 Welcome Party 為準，詳細英文名對照請參閱紙本手冊第 23 頁。
+      ✦ 餐桌中文名對照部分為暫定，詳細請參閱紙本手冊第 23 頁。
     </div>
 
   </div>
 </section>
-
 <!-- ══ CONTACTS ══ -->
 <section id="contacts">
   <div class="section">
